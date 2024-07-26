@@ -30,6 +30,11 @@ return new class extends Migration
             $table->string('foto_sampul')->nullable();
             $table->string('foto')->nullable();
             $table->string('validasi')->nullable();
+            $table->string('instagram')->nullable();
+            $table->string('youtube')->nullable();
+            $table->string('tiktok')->nullable();
+            $table->string('twitter')->nullable();
+            $table->string('website')->nullable();
             $table->timestamps();
         });
     }
