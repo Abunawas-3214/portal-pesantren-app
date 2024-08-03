@@ -8,4 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class Media extends Model
 {
     use HasFactory;
+
+    public $fillable = ['pesantren_id', 'instagram', 'facebook', 'youtube', 'tiktok', 'twitter', 'website'];
+
+    public function pesantren()
+    {
+        return $this->belongsTo(Pesantren::class);
+    }
 }
