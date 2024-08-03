@@ -11,11 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('fotos', function (Blueprint $table) {
-            $table->id();
-            $table->string('link')->nullable();
-            $table->timestamps();
-
+        Schema::create('pesantren_tingkat', function (Blueprint $table) {
+            $table->foreignId('pesantren_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('tingkat_id')->constrained()->cascadeOnDelete();
         });
     }
 
@@ -24,6 +22,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('fotos');
+        Schema::dropIfExists('pesantren_tingkat');
     }
 };

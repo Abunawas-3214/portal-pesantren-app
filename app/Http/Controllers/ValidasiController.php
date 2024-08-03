@@ -2,21 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Pesantren;
-use Illuminate\Http\Request;
+use App\Models\Validasi;
+use App\Http\Requests\StoreValidasiRequest;
+use App\Http\Requests\UpdateValidasiRequest;
 
-class PesantrenController  extends Controller
+class ValidasiController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $pesantren = Pesantren::all();
-
-        return inertia('Pesantren/Index', [
-            'pesantren' => $pesantren
-        ]);
+        //
     }
 
     /**
@@ -30,7 +27,7 @@ class PesantrenController  extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreValidasiRequest $request)
     {
         //
     }
@@ -38,7 +35,7 @@ class PesantrenController  extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Pesantren $pesantren)
+    public function show(Validasi $validasi)
     {
         //
     }
@@ -46,7 +43,7 @@ class PesantrenController  extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Pesantren $pesantren)
+    public function edit(Validasi $validasi)
     {
         //
     }
@@ -54,7 +51,7 @@ class PesantrenController  extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Pesantren $pesantren)
+    public function update(UpdateValidasiRequest $request, Validasi $validasi)
     {
         //
     }
@@ -62,7 +59,7 @@ class PesantrenController  extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Pesantren $pesantren)
+    public function destroy(Validasi $validasi)
     {
         //
     }

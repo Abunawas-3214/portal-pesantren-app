@@ -12,7 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('pesantrens', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->uuid('id');
+            $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
             $table->string('name');
             $table->string('slug')->unique();
             $table->string('pendiri');
@@ -20,21 +21,11 @@ return new class extends Migration
             $table->datetime('tanggal_berdiri');
             $table->text('deskripsi');
             $table->enum('gender', ['putra', 'putri', 'putra_putri']);
-            $table->string('program');
-            $table->string('tingkat');
             $table->string('program_unggulan')->nullable();
-            $table->string('media_id')->nullable();
             $table->string('contact');
             $table->string('logo')->nullable();
             $table->string('video_profil')->nullable();
             $table->string('foto_sampul')->nullable();
-            $table->string('foto')->nullable();
-            $table->string('validasi')->nullable();
-            $table->string('instagram')->nullable();
-            $table->string('youtube')->nullable();
-            $table->string('tiktok')->nullable();
-            $table->string('twitter')->nullable();
-            $table->string('website')->nullable();
             $table->timestamps();
         });
     }
