@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('pesantrens', function (Blueprint $table) {
-            $table->uuid('id');
+            $table->uuid('id')->index();
             $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
             $table->string('name');
             $table->string('slug')->unique();

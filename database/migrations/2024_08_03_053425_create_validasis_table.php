@@ -13,7 +13,8 @@ return new class extends Migration
     {
         Schema::create('validasis', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('pesantren_id')->constrained('pesantrens')->cascadeOnDelete();
+            $table->uuid('pesantren_id');
+            $table->foreign('pesantren_id')->references('id')->on('pesantrens')->onDelete('cascade');
             $table->string('kategori_validasi');
             $table->string('file');
             $table->timestamps();
