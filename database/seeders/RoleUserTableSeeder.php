@@ -2,24 +2,17 @@
 
 namespace Database\Seeders;
 
-use App\Models\Role;
+use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class RoleSeeder extends Seeder
+class RoleUserTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-        $roles = [
-            [
-                'id' => 1,
-                'name' => 'super admin'
-            ]
-        ];
-
-        Role::insert($roles);
+        User::find(1)->roles()->attach(1);
     }
 }

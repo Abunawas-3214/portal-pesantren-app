@@ -18,12 +18,12 @@ class Pesantren extends Model
 
     public function programs()
     {
-        return $this->hasMany(Program::class);
+        return $this->hasMany(Program::class, 'pesantren_program');
     }
 
     public function tingkats()
     {
-        return $this->hasMany(Tingkat::class);
+        return $this->hasMany(Tingkat::class, 'pesantren_tingkat');
     }
 
     public function media()
@@ -33,7 +33,7 @@ class Pesantren extends Model
 
     public function photos()
     {
-        return $this->hasMany(PesantrenPhoto::class);
+        return $this->hasMany(PesantrenPhoto::class, 'pesantren_photos');
     }
 
     public function validasi()

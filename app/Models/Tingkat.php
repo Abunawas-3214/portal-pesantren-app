@@ -13,6 +13,6 @@ class Tingkat extends Model
 
     public function pesantren()
     {
-        return $this->belongsToMany(Pesantren::class);
+        return $this->belongsToMany(Pesantren::class, 'pesantren_tingkat');
     }
 }
