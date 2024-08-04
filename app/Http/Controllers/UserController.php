@@ -2,20 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Role;
-use App\Http\Requests\StoreRoleRequest;
-use App\Http\Requests\UpdateRoleRequest;
+use App\Http\Resources\UserResource;
+use App\Models\User;
+use Illuminate\Http\Request;
 
-class RoleController extends Controller
+class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $role = Role::all();
-        return inertia('Role/Index', [
-            'role' => $role
+        $users = User::with('roles')->get();
+        return inertia('User/Index', [
+            'users' => UserResource::collection($users)
         ]);
     }
 
@@ -30,7 +30,7 @@ class RoleController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreRoleRequest $request)
+    public function store(Request $request)
     {
         //
     }
@@ -38,7 +38,7 @@ class RoleController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Role $role)
+    public function show(User $user)
     {
         //
     }
@@ -46,7 +46,7 @@ class RoleController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Role $role)
+    public function edit(User $user)
     {
         //
     }
@@ -54,7 +54,7 @@ class RoleController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateRoleRequest $request, Role $role)
+    public function update(Request $request, User $user)
     {
         //
     }
@@ -62,7 +62,7 @@ class RoleController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Role $role)
+    public function destroy(User $user)
     {
         //
     }

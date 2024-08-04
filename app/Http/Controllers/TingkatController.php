@@ -14,7 +14,7 @@ class TingkatController extends Controller
     {
         $tingkat = Tingkat::all();
 
-        return Inertia::render('Tingkat/Index', [
+        return inertia('Tingkat/Index', [
             'tingkat' => $tingkat
         ]);
     }
@@ -24,8 +24,7 @@ class TingkatController extends Controller
      */
     public function create()
     {
-        return Inertia::render('Tingkat/Create');
-
+        return inertia('Tingkat/Create');
     }
 
     /**
@@ -42,7 +41,6 @@ class TingkatController extends Controller
         ]);
 
         return redirect()->route('tingkat.index')->with('success', 'Tingkat berhasil ditambahkan.');
-
     }
 
     /**
@@ -50,7 +48,7 @@ class TingkatController extends Controller
      */
     public function show(Tingkat $tingkat)
     {
-        // return Inertia::render('Tingkat/Show', [
+        // return inertia('Tingkat/Show', [
         //     'tingkat' => $tingkat
         // ]);
 
@@ -61,10 +59,9 @@ class TingkatController extends Controller
      */
     public function edit(Tingkat $tingkat)
     {
-        return Inertia::render('Tingkat/Edit', [
+        return inertia('Tingkat/Edit', [
             'tingkat' => $tingkat
         ]);
-
     }
 
     /**
@@ -81,7 +78,6 @@ class TingkatController extends Controller
         ]);
 
         return redirect()->route('tingkat.index')->with('success', 'Tingkat berhasil diperbarui.');
-
     }
 
     /**
@@ -92,6 +88,5 @@ class TingkatController extends Controller
         $tingkat->delete();
 
         return redirect()->route('tingkat.index')->with('success', 'Tingkat berhasil dihapus.');
-
     }
 }

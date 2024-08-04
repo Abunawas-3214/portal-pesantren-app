@@ -31,5 +31,9 @@
         "test": "tests"
     },
     "author": "",
-    "license": "ISC"
+    "license": "ISC",
+    "dependencies": {
+        "@tanstack/react-table": "^8.20.1",
+        "react-hook-form": "^7.52.2"
+    }
 }
