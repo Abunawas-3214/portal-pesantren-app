@@ -1,3 +1,6 @@
+export { type Role } from './role';
+export { type Permission } from './permission';
+
 export interface User {
     id: number;
     name: string;

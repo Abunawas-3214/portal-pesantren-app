@@ -9,7 +9,9 @@ interface DataTableProps<TData, TValue> {
     columns: ColumnDef<TData, TValue>[]
     data: TData[]
 }
-export default function TableRole<TData, TValue>({
+
+
+export default function TableUser<TData, TValue>({
     columns,
     data,
 }: DataTableProps<TData, TValue>) {

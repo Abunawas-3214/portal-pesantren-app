@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Role;
 use App\Http\Requests\StoreRoleRequest;
 use App\Http\Requests\UpdateRoleRequest;
+use App\Http\Resources\RoleResource;
+use App\Models\Permission;
 
 class RoleController extends Controller
 {
@@ -13,9 +15,9 @@ class RoleController extends Controller
      */
     public function index()
     {
-        $role = Role::all();
+        $roles = Role::with('permissions')->get();
         return inertia('Role/Index', [
-            'role' => $role
+            'roles' => RoleResource::collection($roles)
         ]);
     }
 
@@ -24,7 +26,10 @@ class RoleController extends Controller
      */
     public function create()
     {
-        //
+        $permissions = Permission::all();
+        return inertia('Role/Create', [
+            'permissions' => $permissions
+        ]);
     }
 
     /**
@@ -32,7 +37,13 @@ class RoleController extends Controller
      */
     public function store(StoreRoleRequest $request)
     {
-        //
+        $role = Role::create($request->validated());
+
+        $permissions = $request->permissions;
+
+        $role->permissions()->sync($permissions);
+
+        return redirect()->route('role.index');
     }
 
     /**
@@ -48,7 +59,12 @@ class RoleController extends Controller
      */
     public function edit(Role $role)
     {
-        //
+        $perimssions = Permission::all();
+        $role->load('permissions');
+        return inertia('Role/Edit', [
+            'role' => $role,
+            'permissions' => $perimssions
+        ]);
     }
 
     /**
@@ -56,7 +72,13 @@ class RoleController extends Controller
      */
     public function update(UpdateRoleRequest $request, Role $role)
     {
-        //
+        $role->update($request->validated());
+
+        $permissions = $request->permissions;
+
+        $role->permissions()->sync($permissions);
+
+        return redirect()->route('role.index');
     }
 
     /**
@@ -64,6 +86,7 @@ class RoleController extends Controller
      */
     public function destroy(Role $role)
     {
-        //
+        $role->delete();
+        return redirect()->route('role.index');
     }
 }

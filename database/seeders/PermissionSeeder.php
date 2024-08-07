@@ -95,8 +95,12 @@ class PermissionSeeder extends Seeder
                 'description' => 'Mengubah post',
             ],
             [
-                'name' => 'post_show',
-                'description' => 'Menampilkan daftar post',
+                'name' => 'post_show_all',
+                'description' => 'Menampilkan daftar semua post',
+            ],
+            [
+                'name' => 'post_show_self',
+                'description' => 'Menampilkan daftar post sendiri',
             ],
             [
                 'name' => 'post_delete',
@@ -119,8 +123,12 @@ class PermissionSeeder extends Seeder
                 'description' => 'Mengubah pesantren',
             ],
             [
-                'name' => 'pesantren_show',
-                'description' => 'Menampilkan daftar pesantren',
+                'name' => 'pesantren_show_all',
+                'description' => 'Menampilkan daftar semua pesantren',
+            ],
+            [
+                'name' => 'pesantren_show_self',
+                'description' => 'Menampilkan daftar pesantren sendiri',
             ],
             [
                 'name' => 'pesantren_delete',

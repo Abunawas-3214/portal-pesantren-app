@@ -25,16 +25,16 @@ export default function Authenticated({ user, header, children }: PropsWithChild
                                 <NavLink href={route('dashboard')} active={route().current('dashboard')}>
                                     Dashboard
                                 </NavLink>
-                                {/* <NavLink href={route('dashboard')} active={route().current('dashboard')}>
+                                <NavLink href={route('dashboard')} active={route().current('dashboard')}>
                                     Pesantren
                                 </NavLink>
-                                <NavLink href={route('dashboard')} active={route().current('dashboard')}>
+                                {/* <NavLink href={route('dashboard')} active={route().current('dashboard')}>
                                     Post
-                                </NavLink>
-                                <NavLink href={route('dashboard')} active={route().current('dashboard')}>
+                                </NavLink> */}
+                                {/* <NavLink href={route('dashboard')} active={route().current('dashboard')}>
                                     Program
-                                </NavLink>
-                                <NavLink href={route('dashboard')} active={route().current('dashboard')}>
+                                </NavLink> */}
+                                {/* <NavLink href={route('dashboard')} active={route().current('dashboard')}>
                                     Tingkat
                                 </NavLink> */}
                                 <NavLink href={route('user.index')} active={route().current('user.index')}>
@@ -140,7 +140,17 @@ export default function Authenticated({ user, header, children }: PropsWithChild
                 </header>
             )}
 
-            <main>{children}</main>
+            <main>
+                <div className="py-10 bg-gray-100">
+                    <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">
+                        <div className="overflow-hidden bg-white shadow-sm sm:rounded-lg">
+                            <div className="p-6 space-y-8 text-gray-900">
+                                {children}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
         </div>
     );
 }
