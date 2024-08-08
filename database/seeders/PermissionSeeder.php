@@ -34,6 +34,10 @@ class PermissionSeeder extends Seeder
                 'name' => 'user_access',
                 'description' => 'Mengakses menu user',
             ],
+            [
+                'name' => 'user_set_pesantren',
+                'description' => 'Menetapkan pesantren pada user',
+            ],
 
 
 

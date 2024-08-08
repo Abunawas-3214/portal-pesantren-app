@@ -2,8 +2,12 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head } from '@inertiajs/react';
 import { PageProps } from '@/types';
 import PesantrenForm from '@/Components/form/pesantren-form';
+import { User } from '@/types/user';
 
-export default function Create({ auth }: PageProps) {
+export default function Create({ auth, users, program, tingkat }: PageProps & { users: User[], program: any[], tingkat: any[] }) {
+  console.log(program)
+  console.log(tingkat)
+
   return (
     <AuthenticatedLayout
       user={auth.user}
@@ -22,7 +26,7 @@ export default function Create({ auth }: PageProps) {
         </div>
       </div>
 
-      <PesantrenForm />
+      <PesantrenForm users={users} />
 
     </AuthenticatedLayout>
   );

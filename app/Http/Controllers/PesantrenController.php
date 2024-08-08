@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Pesantren;
+use App\Models\Program;
+use App\Models\Tingkat;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class PesantrenController  extends Controller
@@ -22,7 +25,15 @@ class PesantrenController  extends Controller
      */
     public function create()
     {
-        return inertia('Pesantren/Create');
+        $users = User::hasPesantrenEditPermission()->get();
+        $program = Program::all();
+        $tingkat = Tingkat::all();
+
+        return inertia('Pesantren/Create', [
+            'users' => $users,
+            'program' => $program,
+            'tingkat' => $tingkat,
+        ]);
     }
 
     /**

@@ -50,7 +50,7 @@ export default function RoleForm({ permissions, role }: { permissions: Permissio
                         htmlFor="name"
                         className="block text-sm font-medium text-gray-700"
                     >
-                        Permissions <span className='text-xs text-gray-500'>(Tahan ctrl utnuk memilih lebih dari 1)</span>
+                        Permissions <span className='text-xs text-gray-400'>(Tahan tombol ctrl/cmd utnuk memilih lebih dari 1)</span>
                     </label>
                     <select
                         defaultValue={selectedPermissions?.map((permission) => permission.toString())}

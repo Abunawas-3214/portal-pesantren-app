@@ -59,4 +59,11 @@ class User extends Authenticatable
     {
         return $this->hasOne(Pesantren::class);
     }
+
+    public function scopeHasPesantrenEditPermission($query)
+    {
+        return $query->whereHas('roles.permissions', function ($query) {
+            $query->where('name', 'pesantren_edit');
+        })->where('id', '!=', 1);
+    }
 }
