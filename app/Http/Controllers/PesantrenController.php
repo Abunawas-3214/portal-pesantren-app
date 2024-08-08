@@ -12,11 +12,9 @@ class PesantrenController  extends Controller
      */
     public function index()
     {
-        $pesantren = Pesantren::all();
+        // $pesantren = Pesantren::all();
 
-        return inertia('Pesantren/Index', [
-            'pesantren' => $pesantren
-        ]);
+        return inertia('Pesantren/Index');
     }
 
     /**
@@ -24,7 +22,7 @@ class PesantrenController  extends Controller
      */
     public function create()
     {
-        //
+        return inertia('Pesantren/Create');
     }
 
     /**

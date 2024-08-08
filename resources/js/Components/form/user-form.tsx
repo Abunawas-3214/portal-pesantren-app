@@ -53,7 +53,7 @@ export default function UserForm({ dataRole, user }: { dataRole: Role[], user?: 
 
                 <div className="col-span-6 sm:col-span-3">
                     <label
-                        htmlFor="name"
+                        htmlFor="email"
                         className="block text-sm font-medium text-gray-700"
                     >
                         E-mail
@@ -62,7 +62,7 @@ export default function UserForm({ dataRole, user }: { dataRole: Role[], user?: 
                         value={data.email}
                         onChange={(e) => setData('email', e.target.value)}
                         type="email"
-                        id="name"
+                        id="email"
                         className={`block w-full px-3 py-2 mt-1 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm ${errors.name ? "border-red-300 text-red-900 focus:ring-red-500 focus:border-red-500" : ""}`}
                     />
                     <InputError message={errors.email} />
@@ -72,7 +72,7 @@ export default function UserForm({ dataRole, user }: { dataRole: Role[], user?: 
             <div className="grid grid-cols-6 gap-6">
                 <div className="col-span-6 sm:col-span-3">
                     <label
-                        htmlFor="name"
+                        htmlFor="password"
                         className="block text-sm font-medium text-gray-700"
                     >
                         Password
@@ -81,7 +81,7 @@ export default function UserForm({ dataRole, user }: { dataRole: Role[], user?: 
                         value={data.password}
                         onChange={(e) => setData('password', e.target.value)}
                         type="password"
-                        id="name"
+                        id="password"
                         className={`block w-full px-3 py-2 mt-1 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm ${errors.name ? "border-red-300 text-red-900 focus:ring-red-500 focus:border-red-500" : ""}`}
                     />
                     <InputError message={errors.password} />
@@ -89,7 +89,7 @@ export default function UserForm({ dataRole, user }: { dataRole: Role[], user?: 
 
                 <div className="col-span-6 sm:col-span-3">
                     <label
-                        htmlFor="name"
+                        htmlFor="password_confirmation"
                         className="block text-sm font-medium text-gray-700"
                     >
                         Confirm Password
@@ -98,7 +98,7 @@ export default function UserForm({ dataRole, user }: { dataRole: Role[], user?: 
                         value={data.password_confirmation}
                         onChange={(e) => setData('password_confirmation', e.target.value)}
                         type="password"
-                        id="name"
+                        id="password_confirmation"
                         className={`block w-full px-3 py-2 mt-1 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm ${errors.name ? "border-red-300 text-red-900 focus:ring-red-500 focus:border-red-500" : ""}`}
                     />
                     <InputError message={errors.password_confirmation} />
@@ -108,7 +108,7 @@ export default function UserForm({ dataRole, user }: { dataRole: Role[], user?: 
             <div className="grid grid-cols-6 gap-6">
                 <div className="col-span-6 sm:col-span-3">
                     <label
-                        htmlFor="name"
+                        htmlFor="status"
                         className="block text-sm font-medium text-gray-700"
                     >
                         Status
@@ -129,7 +129,7 @@ export default function UserForm({ dataRole, user }: { dataRole: Role[], user?: 
 
                 <div className="col-span-6 sm:col-span-3">
                     <label
-                        htmlFor="name"
+                        htmlFor="roles"
                         className="block text-sm font-medium text-gray-700"
                     >
                         Role
@@ -152,7 +152,7 @@ export default function UserForm({ dataRole, user }: { dataRole: Role[], user?: 
                     <InputError message={errors.roles} />
                 </div>
             </div>
-            <div className="px-4 py-3 text-right bg-gray-50 sm:px-6">
+            <div className="px-4 py-3 text-right sm:px-6">
                 <Link
                     href={route('role.index')}
                     className="inline-flex items-center px-4 py-2 mr-4 text-sm font-medium text-indigo-700 bg-indigo-100 border border-transparent rounded-md hover:bg-indigo-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"

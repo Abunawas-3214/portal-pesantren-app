@@ -69,7 +69,7 @@ export default function RoleForm({ permissions, role }: { permissions: Permissio
                     <InputError message={errors.permissions} />
                 </div>
             </div>
-            <div className="px-4 py-3 text-right bg-gray-50 sm:px-6">
+            <div className="px-4 py-3 text-right sm:px-6">
                 <Link
                     href={route('role.index')}
                     className="inline-flex items-center px-4 py-2 mr-4 text-sm font-medium text-indigo-700 bg-indigo-100 border border-transparent rounded-md hover:bg-indigo-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
