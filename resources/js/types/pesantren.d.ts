@@ -1,9 +1,10 @@
+import { Program } from "./program";
+import { Tingkat } from "./tingkat";
 import { User } from "./user";
-import { Kecamatan } from "@/Helper/kecamtan";
 
 export interface Pesantren {
     user_id: User
-    id: number;
+    id: string;
     name: string;
     slug: string;
     alamat: string | null;
@@ -13,9 +14,12 @@ export interface Pesantren {
     tanggal_berdiri: Date | null;
     deskripsi: string | null;
     program_unggulan: string | null;
-    logo: string | null;
+    logo: string | null | File;
     contact: number | null;
     gender: 'putra' | 'putri' | 'putra_putri' | null;
     video_profil: string | null;
-    foto_sampul: string | null;
+    foto_sampul: string | null | File;
+    user: User;
+    programs: Program[];
+    tingkats: Tingkat[];
 }

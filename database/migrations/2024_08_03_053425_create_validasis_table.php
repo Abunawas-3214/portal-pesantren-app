@@ -17,7 +17,6 @@ return new class extends Migration
             $table->foreign('pesantren_id')->references('id')->on('pesantrens')->onDelete('cascade');
             $table->string('kategori_validasi');
             $table->string('file');
-            $table->timestamps();
         });
     }
 

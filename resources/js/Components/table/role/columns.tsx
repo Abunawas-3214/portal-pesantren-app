@@ -24,7 +24,6 @@ export const columns: ColumnDef<Role>[] = [
         accessorKey: "permissions",
         header: "Permissions",
         cell: ({ row }) => {
-            // const permissions = row.original.permissions.map((permission) => permission.name).join(", ");
             return (
                 <div className="flex flex-wrap gap-2">
                     {row.original.permissions.map((permission) => (

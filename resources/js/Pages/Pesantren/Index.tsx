@@ -1,14 +1,17 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head, Link } from '@inertiajs/react';
-import { PageProps } from '@/types';
+import { PageProps, Pesantren } from '@/types';
+import TablePesantren from '@/Components/table/pesantren/table-pesantren';
+import { columns } from '@/Components/table/pesantren/column';
 
-export default function Index({ auth }: PageProps) {
+export default function Index({ auth, pesantrenData }: PageProps & { pesantrenData: Pesantren[] }) {
+    // console.log(pesantrenData)
     return (
         <AuthenticatedLayout
             user={auth.user}
             header={<h2 className="text-xl font-semibold leading-tight text-gray-800">Pesantren</h2>}
         >
-            <Head title="User" />
+            <Head title="Pesantren" />
 
             <div className="sm:flex sm:items-center">
                 <div className="space-y-1 sm:flex-auto">
@@ -30,7 +33,7 @@ export default function Index({ auth }: PageProps) {
                 </div>
             </div>
             <div>
-                {/* <TableUser columns={columns} data={users.data} /> */}
+                <TablePesantren columns={columns} data={pesantrenData} />
             </div>
         </AuthenticatedLayout>
     );

@@ -5,7 +5,6 @@ import UserForm from '@/Components/form/user-form';
 import { User } from '@/types/user';
 
 export default function Edit({ auth, dataRole, user }: PageProps & { dataRole: Role[], user: User }) {
-    console.log(user);
     return (
         <AuthenticatedLayout
             user={auth.user}

@@ -1,32 +1,46 @@
-import { Link, useForm } from "@inertiajs/react";
+import { Link, router, useForm } from "@inertiajs/react";
 import InputError from "../InputError";
 import { useEffect } from "react";
 import slugify from "slugify";
 import { User } from "@/types/user";
 import { Kecamatan } from "@/Helper/kecamtan";
+import { Pesantren, Program, Tingkat } from '@/types';
 
-export default function PesantrenForm({ users }: { users: User[] }) {
+export default function PesantrenForm({ pesantren, users, program, tingkat }: { pesantren?: Pesantren, users: User[], program: Program[], tingkat: Tingkat[] }) {
+    const selectedProgram = pesantren?.programs.map(program => program.id)
+    const selectedTingkat = pesantren?.tingkats.map(tingkat => tingkat.id)
+    function extractDate(datetimeString: Date) {
+        const date = new Date(datetimeString);
+        const year = date.getFullYear();
+        const month = String(date.getMonth()
+            + 1).padStart(2, '0'); // Months are zero-indexed
+        const day = String(date.getDate()).padStart(2, '0');
+
+        return `${year}-${month}-${day}`;
+
+    }
     const { data, setData, post, put, errors, reset } = useForm({
-        user_id: '',
-        name: '',
-        slug: '',
-        alamat: '',
-        kecamatan: '',
-        pendiri: '',
-        pengasuh: '',
-        tanggal_berdiri: '',
-        deskripsi: '',
-        gender: '',
-        program: '',
-        tingkat: '',
-        program_unggulan: '',
-        contact: '',
-        logo: null,
-        video_profil: '',
-        foto_sampul: null
+        user_id: pesantren?.user.id || '',
+        name: pesantren?.name || '',
+        slug: pesantren?.slug || '',
+        alamat: pesantren?.alamat || '',
+        kecamatan: pesantren?.kecamatan || '',
+        pendiri: pesantren?.pendiri || '',
+        pengasuh: pesantren?.pengasuh || '',
+        tanggal_berdiri: extractDate(pesantren?.tanggal_berdiri || new Date()) || '',
+        deskripsi: pesantren?.deskripsi || '',
+        gender: pesantren?.gender || '',
+        program: selectedProgram || [] as String[],
+        tingkat: selectedTingkat || [] as String[],
+        program_unggulan: pesantren?.program_unggulan || '',
+        contact: pesantren?.contact || '',
+        logo: null as File | null,
+        foto_sampul: null as File | null,
+        _method: pesantren ? 'PUT' : 'POST',
     })
 
-    // console.log(data.tanggal_berdiri)
+    console.log(data)
+
 
     useEffect(() => {
         const generateSlug = slugify(data.name, {
@@ -36,14 +50,33 @@ export default function PesantrenForm({ users }: { users: User[] }) {
         setData('slug', generateSlug)
     }, [data.name])
 
+    const handleSelectProgram = (e: React.ChangeEvent<HTMLSelectElement>) => {
+        const selectedProgram = Array.from(e.target.selectedOptions).map(option => option.value)
+        setData('program', selectedProgram)
+    }
+
+    const handleSelectTingkat = (e: React.ChangeEvent<HTMLSelectElement>) => {
+        const selectedTingkat = Array.from(e.target.selectedOptions).map(option => option.value)
+        setData('tingkat', selectedTingkat)
+    }
+
+
     const handleContactChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const value = e.target.value
         const formattedValue = value.startsWith('0') ? `62${value.substring(1)}` : value;
         setData('contact', formattedValue);
     };
 
+    const submit = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault()
+        if (pesantren) {
+            post(route('pesantren.update', pesantren.id))
+        } else {
+            post(route('pesantren.store'))
+        }
+    }
     return (
-        <form className="space-y-6">
+        <form className="space-y-6" onSubmit={submit}>
             <div className="grid grid-cols-6 gap-6">
                 <div className="col-span-6 sm:col-span-3">
                     <label
@@ -102,7 +135,7 @@ export default function PesantrenForm({ users }: { users: User[] }) {
                         id="slug"
                         className={`block w-full px-3 py-2 mt-1 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm ${errors.slug ? "border-red-300 text-red-900 focus:ring-red-500 focus:border-red-500" : ""}`}
                     />
-                    <InputError message={errors.name} />
+                    <InputError message={errors.slug} />
                 </div>
             </div>
 
@@ -122,7 +155,7 @@ export default function PesantrenForm({ users }: { users: User[] }) {
                         placeholder="Jl. K.H. Hasyim Ashari No.21, Kauman, Kec. Klojen, Kota Malang, Jawa Timur, 65119"
                         className={`block w-full px-3 py-2 mt-1 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm ${errors.alamat ? "border-red-300 text-red-900 focus:ring-red-500 focus:border-red-500" : ""}`}
                     />
-                    <InputError message={errors.name} />
+                    <InputError message={errors.alamat} />
                 </div>
                 <div className="col-span-6 sm:col-span-3">
                     <label
@@ -284,13 +317,17 @@ export default function PesantrenForm({ users }: { users: User[] }) {
                     </label>
                     <select
                         id="program"
-                        value={data.gender}
+                        defaultValue={selectedProgram?.map((program) => program.toString())}
                         multiple
-                        onChange={(e) => setData('gender', e.target.value)}
+                        onChange={handleSelectProgram}
                         className={`block w-full h-16 px-3 py-2 mt-1 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm ${errors.program ? "border-red-300 text-red-900 focus:ring-red-500 focus:border-red-500" : ""}`}
                     >
-                        <option value="kitab">Kitab</option>
-                        <option value="tahfidz">Tahfidz</option>
+                        {program.map((p) => (
+                            <option key={p.id} value={p.id}>
+                                {p.name}
+                            </option>
+                        ))}
+
                     </select>
                     <InputError message={errors.program} />
                 </div>
@@ -304,15 +341,17 @@ export default function PesantrenForm({ users }: { users: User[] }) {
                     </label>
                     <select
                         id="tingkat"
-                        value={data.gender}
                         multiple
-                        onChange={(e) => setData('gender', e.target.value)}
+                        defaultValue={selectedTingkat?.map((tingkat) => tingkat.toString())}
+                        onChange={handleSelectTingkat}
                         className={`block w-full h-24 px-3 py-2 mt-1 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm ${errors.tingkat ? "border-red-300 text-red-900 focus:ring-red-500 focus:border-red-500" : ""}`}
                     >
-                        <option value="umum">Umum</option>
-                        <option value="mahasiswa">Mahasiswa</option>
-                        <option value="sltp">SLTP</option>
-                        <option value="slta">SLTA</option>
+                        {tingkat.map((t) => (
+                            <option key={t.id} value={t.id}>
+                                {t.name}
+                            </option>
+                        ))}
+
                     </select>
                     <InputError message={errors.gender} />
                 </div>
@@ -324,13 +363,14 @@ export default function PesantrenForm({ users }: { users: User[] }) {
                         htmlFor="logo"
                         className="block text-sm font-medium text-gray-700"
                     >
-                        Logo <span className='text-xs text-gray-400'>(berlatar belakang transparan ddan berformat .png)</span>
+                        Logo <span className='text-xs text-gray-400'>(berlatar belakang transparan dan berformat .png)</span>
                     </label>
                     <input
                         type="file"
                         id="logo"
                         accept=".png"
-                        // onChange={(e) => setData('logo', e.target.files[0])}
+                        // value={data.logo}
+                        onChange={(e) => setData('logo', e.target.files ? e.target.files[0] : null)}
                         className={`block w-full px-3 py-2 mt-1 text-sm text-gray-900 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 ${errors.logo ? "border-red-300 text-red-900 focus:ring-red-500 focus:border-red-500" : ""}`}
                     />
                     <InputError message={errors.logo} />
@@ -341,13 +381,13 @@ export default function PesantrenForm({ users }: { users: User[] }) {
                         htmlFor="foto_sampul"
                         className="block text-sm font-medium text-gray-700"
                     >
-                        Foto Sampul <span className='text-xs text-gray-400'>(Usahakan dalam orientasi Protrait / vertical)</span>
+                        Foto Sampul <span className='text-xs text-gray-400'>(Usahakan dalam orientasi protrait / vertical)</span>
                     </label>
                     <input
                         type="file"
                         id="foto_sampul"
                         accept="image/*"
-                        // onChange={(e) => setData('logo', e.target.files[0])}
+                        onChange={(e) => setData('foto_sampul', e.target.files ? e.target.files[0] : null)}
                         className={`block w-full px-3 py-2 mt-1 text-sm text-gray-900 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 ${errors.foto_sampul ? "border-red-300 text-red-900 focus:ring-red-500 focus:border-red-500" : ""}`}
                     />
                     <InputError message={errors.foto_sampul} />
@@ -356,7 +396,7 @@ export default function PesantrenForm({ users }: { users: User[] }) {
 
             <div className="px-4 py-3 text-right sm:px-6">
                 <Link
-                    href={route('role.index')}
+                    href={route('pesantren.index')}
                     className="inline-flex items-center px-4 py-2 mr-4 text-sm font-medium text-indigo-700 bg-indigo-100 border border-transparent rounded-md hover:bg-indigo-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                 >
                     Cancel
@@ -365,7 +405,7 @@ export default function PesantrenForm({ users }: { users: User[] }) {
                     type="submit"
                     className="inline-flex justify-center px-4 py-2 text-sm font-medium text-white bg-indigo-600 border border-transparent rounded-md shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                 >
-                    Create
+                    {pesantren ? 'Update' : 'Create'}
                 </button>
             </div>
         </form>

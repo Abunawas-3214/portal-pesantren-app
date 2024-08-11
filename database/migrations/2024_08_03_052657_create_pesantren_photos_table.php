@@ -16,7 +16,6 @@ return new class extends Migration
             $table->uuid('pesantren_id');
             $table->foreign('pesantren_id')->references('id')->on('pesantrens')->onDelete('cascade');
             $table->string('file');
-            $table->timestamps();
         });
     }
 

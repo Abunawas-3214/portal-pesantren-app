@@ -38,7 +38,6 @@ class UserController extends Controller
      */
     public function store(StoreUserRequest $request)
     {
-        // dd($request->all());
         $user = User::create($request->validated());
 
         $roles = $request->roles;

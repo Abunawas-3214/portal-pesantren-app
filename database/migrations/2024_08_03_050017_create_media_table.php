@@ -21,7 +21,6 @@ return new class extends Migration
             $table->string('tiktok')->nullable();
             $table->string('twitter')->nullable();
             $table->string('website')->nullable();
-            $table->timestamps();
         });
     }
 
