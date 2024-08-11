@@ -11,7 +11,7 @@ class UpdateValidasiRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return auth()->check();
     }
 
     /**
@@ -22,7 +22,10 @@ class UpdateValidasiRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'pesantren_id' => ['required', 'exists:pesantrens,id'],
+            'kemenag' => ['nullable', 'File::mimes:pdf'],
+            'rmi' => ['nullable', 'File::mimes:pdf'],
+            '_method' => ['in:PUT'],
         ];
     }
 }

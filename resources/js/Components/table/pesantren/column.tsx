@@ -19,19 +19,6 @@ export const columns: ColumnDef<Pesantren>[] = [
 
     },
     {
-        accessorKey: "logo",
-        header: "Logo",
-        cell: ({ row }) => {
-            return (
-                <img
-                    src={row.original.logo as string}
-                    alt={row.original.name}
-                    className="w-10 h-10 rounded-full"
-                />
-            );
-        }
-    },
-    {
         accessorKey: "name",
         header: "Name",
     },

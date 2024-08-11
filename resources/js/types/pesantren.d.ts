@@ -1,6 +1,8 @@
 import { Program } from "./program";
+import { SocialMedia } from "./social-media";
 import { Tingkat } from "./tingkat";
 import { User } from "./user";
+import { Validasi } from "./validasi";
 
 export interface Pesantren {
     user_id: User
@@ -22,4 +24,6 @@ export interface Pesantren {
     user: User;
     programs: Program[];
     tingkats: Tingkat[];
+    media: SocialMedia;
+    validasi: Validasi[];
 }

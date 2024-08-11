@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StorePesantrenRequest;
 use App\Http\Requests\UpdatePesantrenRequest;
+use App\Models\Media;
 use App\Models\Pesantren;
 use App\Models\Program;
 use App\Models\Tingkat;
@@ -71,6 +72,13 @@ class PesantrenController extends Controller
         $pesantren->save();
 
         $pesantren = Pesantren::find($uuid);
+
+        $media = new Media([
+            'pesantren_id' => $pesantren->id,
+        ]);
+
+        $pesantren->media()->save($media);
+
         $pesantren->programs()->attach($request->program);
         $pesantren->tingkats()->attach($request->tingkat);
 
@@ -112,6 +120,22 @@ class PesantrenController extends Controller
     public function update(UpdatePesantrenRequest $request, Pesantren $pesantren)
     {
         // dd($request->all());
+        if ($pesantren->slug != $request->slug) {
+            if ($pesantren->validasi()) {
+                rename(storage_path("app/public/validasi/{$pesantren->slug}"), storage_path("app/public/validasi/{$request->slug}"));
+                if ($pesantren->validasi()->where('kategori_validasi', 'kemenag')->first()) {
+                    $pesantren->validasi()->where('kategori_validasi', 'kemenag')->first()->update([
+                        'file' => "public/validasi/{$request->slug}/kemenag.pdf"
+                    ]);
+                }
+                if ($pesantren->validasi()->where('kategori_validasi', 'rmi')->first()) {
+                    $pesantren->validasi()->where('kategori_validasi', 'rmi')->first()->update([
+                        'file' => "public/validasi/{$request->slug}/rmi.pdf"
+                    ]);
+                }
+            }
+        }
+
         $pesantren->update($request->validated());
 
         if ($request->hasFile('logo')) {
@@ -153,6 +177,11 @@ class PesantrenController extends Controller
         if ($pesantren->foto_sampul) {
             Storage::delete($pesantren->foto_sampul);
         }
+
+        if ($pesantren->validasi()) {
+            Storage::deleteDirectory("public/validasi/{$pesantren->slug}");
+        }
+
         $pesantren->delete();
         return redirect()->route('pesantren.index');
     }

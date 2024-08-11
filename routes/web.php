@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\MediaController;
 use App\Http\Controllers\PesantrenController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
@@ -7,6 +8,7 @@ use App\Http\Controllers\ProgramController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\TingkatController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ValidasiController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -32,6 +34,11 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     Route::resource('/pesantren', PesantrenController::class);
+    Route::get('/pesantren/{pesantren}/edit/media', [MediaController::class, 'edit'])->name('pesantren.media.edit');
+    Route::put('/pesantren/{pesantren}/update/media', [MediaController::class, 'update'])->name('pesantren.media.update');
+    Route::get('/pesantren/{pesantren}/edit/validasi', [ValidasiController::class, 'edit'])->name('pesantren.validasi.edit');
+    Route::put('/pesantren/{pesantren}/update/validasi', [ValidasiController::class, 'update'])->name('pesantren.validasi.update');
+
     Route::resource('/user', UserController::class);
     Route::resource('/role', RoleController::class);
 });

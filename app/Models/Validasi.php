@@ -9,6 +9,7 @@ class Validasi extends Model
 {
     use HasFactory;
 
+    public $timestamps = false;
     protected $fillable = ['pesantren_id', 'kategori_validasi', 'file'];
 
     public function pesantren()

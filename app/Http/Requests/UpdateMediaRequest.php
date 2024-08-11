@@ -11,7 +11,7 @@ class UpdateMediaRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return auth()->check();
     }
 
     /**
@@ -22,7 +22,13 @@ class UpdateMediaRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'pesantren_id' => ['required', 'exists:pesantrens,id'],
+            'facebook' => ['nullable', 'url'],
+            'instagram' => ['nullable', 'url'],
+            'youtube' => ['nullable', 'url'],
+            'tiktok' => ['nullable', 'url'],
+            'twitter' => ['nullable', 'url'],
+            'website' => ['nullable', 'url'],
         ];
     }
 }

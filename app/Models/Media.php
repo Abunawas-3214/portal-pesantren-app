@@ -9,6 +9,8 @@ class Media extends Model
 {
     use HasFactory;
 
+    public $timestamps = false;
+
     public $fillable = ['pesantren_id', 'instagram', 'facebook', 'youtube', 'tiktok', 'twitter', 'website'];
 
     public function pesantren()

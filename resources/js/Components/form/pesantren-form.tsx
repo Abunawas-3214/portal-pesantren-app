@@ -38,10 +38,6 @@ export default function PesantrenForm({ pesantren, users, program, tingkat }: { 
         foto_sampul: null as File | null,
         _method: pesantren ? 'PUT' : 'POST',
     })
-
-    console.log(data)
-
-
     useEffect(() => {
         const generateSlug = slugify(data.name, {
             lower: true,
