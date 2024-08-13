@@ -17,7 +17,7 @@ export default function ValidasiForm({ pesantren }: { pesantren: Pesantren }) {
         post(route('pesantren.validasi.update', pesantren.id))
     }
 
-    console.log(data)
+    // console.log(data)
 
     return (
         <form className='space-y-6' onSubmit={submit}>

@@ -9,6 +9,7 @@ class PesantrenPhoto extends Model
 {
     use HasFactory;
 
+    public $timestamps = false;
     protected $fillable = ['pesantren_id', 'file'];
 
     public function pesantren()

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\MediaController;
 use App\Http\Controllers\PesantrenController;
+use App\Http\Controllers\PesantrenPhotoController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProgramController;
@@ -38,6 +39,8 @@ Route::middleware('auth')->group(function () {
     Route::put('/pesantren/{pesantren}/update/media', [MediaController::class, 'update'])->name('pesantren.media.update');
     Route::get('/pesantren/{pesantren}/edit/validasi', [ValidasiController::class, 'edit'])->name('pesantren.validasi.edit');
     Route::put('/pesantren/{pesantren}/update/validasi', [ValidasiController::class, 'update'])->name('pesantren.validasi.update');
+    Route::get('/pesantren/{pesantren}/edit/photo', [PesantrenPhotoController::class, 'edit'])->name('pesantren.photo.edit');
+    Route::put('/pesantren/{pesantren}/update/photo', [PesantrenPhotoController::class, 'update'])->name('pesantren.photo.update');
 
     Route::resource('/user', UserController::class);
     Route::resource('/role', RoleController::class);

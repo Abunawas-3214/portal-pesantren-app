@@ -6,9 +6,10 @@ import { Program, Tingkat } from '@/types';
 import MediaForm from '@/Components/form/media-form';
 import ValidasiForm from '@/Components/form/validasi-form';
 import StepsEdit from '@/Components/partial/steps-edit';
+import GalleryForm from '@/Components/form/gallery-form';
 
-export default function EditValidasi({ auth, users, program, tingkat, pesantren }: PageProps & { users: User[], program: Program[], tingkat: Tingkat[], pesantren: Pesantren }) {
-    // console.log(pesantren)
+export default function EditPhoto({ auth, pesantren }: PageProps & { pesantren: Pesantren }) {
+    //console.log(pesantren)
     return (
         <AuthenticatedLayout
             user={auth.user}
@@ -29,7 +30,7 @@ export default function EditValidasi({ auth, users, program, tingkat, pesantren 
 
             <StepsEdit pesantren={pesantren} />
 
-            <ValidasiForm pesantren={pesantren} />
+            <GalleryForm pesantren={pesantren} />
 
         </AuthenticatedLayout>
     );

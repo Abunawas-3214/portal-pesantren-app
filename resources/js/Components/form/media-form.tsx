@@ -8,12 +8,12 @@ export default function MediaForm({ pesantren }: { pesantren: Pesantren }) {
 
     const { data, setData, put, errors, reset } = useForm({
         pesantren_id: pesantren.id,
-        facebook: pesantren.media.facebook || '',
-        instagram: pesantren.media.instaram || '',
-        youtube: pesantren.media.youtube || '',
-        tiktok: pesantren.media.tiktok || '',
-        twitter: pesantren.media.twitter || '',
-        website: pesantren.media.website || '',
+        facebook: pesantren.media?.facebook || '',
+        instagram: pesantren.media?.instaram || '',
+        youtube: pesantren.media?.youtube || '',
+        tiktok: pesantren.media?.tiktok || '',
+        twitter: pesantren.media?.twitter || '',
+        website: pesantren.media?.website || '',
     })
 
     // console.log(data)

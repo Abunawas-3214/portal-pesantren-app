@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Pesantren;
 use App\Models\PesantrenPhoto;
 use App\Http\Requests\StorePesantrenPhotoRequest;
 use App\Http\Requests\UpdatePesantrenPhotoRequest;
+use Illuminate\Support\Facades\Storage;
 
 class PesantrenPhotoController extends Controller
 {
@@ -43,17 +45,45 @@ class PesantrenPhotoController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(PesantrenPhoto $pesantrenPhoto)
+    public function edit(Pesantren $pesantren)
     {
-        //
+        $pesantren = Pesantren::with('photos')->find($pesantren->id);
+        // dd($pesantren);
+        return inertia('Pesantren/EditPhoto', [
+            'pesantren' => $pesantren
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdatePesantrenPhotoRequest $request, PesantrenPhoto $pesantrenPhoto)
+    public function update(UpdatePesantrenPhotoRequest $request, Pesantren $pesantren)
     {
-        //
+        // dd($request->validated());
+        if ($request->hasFile('photos')) {
+            $photos = $request->file('photos');
+            if ($pesantren->photos()->count() > 0) {
+                Storage::deleteDirectory("public/photos/{$pesantren->slug}");
+                $pesantren->photos()->delete();
+            }
+            for ($i = 0; $i < count($photos); $i++) {
+                $photo = $photos[$i];
+                $photoName = $i + 1 . '.' . $photo->getClientOriginalExtension();
+                $photoPath = $photo->storeAs("public/photos/{$pesantren->slug}", $photoName);
+                $pesantren->photos()->create([
+                    'pesantren_id' => $pesantren->id,
+                    'file' => $photoPath
+                ]);
+            }
+        }
+
+        $validatedData = $request->validated();
+
+        $pesantren->update([
+            'video_profil' => $validatedData['video_profil']
+        ]);
+
+        return redirect()->route('pesantren.index');
     }
 
     /**

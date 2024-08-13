@@ -11,7 +11,7 @@ class UpdatePesantrenPhotoRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return auth()->check();
     }
 
     /**
@@ -22,7 +22,11 @@ class UpdatePesantrenPhotoRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'pesantren_id' => ['required', 'exists:pesantrens,id'],
+            'photos' => ['nullable', 'array', 'max:10'],
+            'photos.*' => ['nullable', 'image', 'max:10240'],
+            'video_profil' => ['nullable', 'url'],
+            '_method' => ['in:PUT'],
         ];
     }
 }

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
 
 class Pesantren extends Model
 {
@@ -36,7 +37,7 @@ class Pesantren extends Model
 
     public function photos()
     {
-        return $this->hasMany(PesantrenPhoto::class, 'pesantren_photos');
+        return $this->hasMany(PesantrenPhoto::class, 'pesantren_id');
     }
 
     public function validasi()
