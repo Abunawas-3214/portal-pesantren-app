@@ -18,7 +18,7 @@ export default function Index({ auth, pesantrenData }: PageProps & { pesantrenDa
                         Pesantren List
                     </h1>
                     <p className="text-sm text-gray-700">
-                        Sebuah daftar Pesantren
+                        Sebuah daftar Pesantren di kota malang
                     </p>
                 </div>
 
