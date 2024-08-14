@@ -8,7 +8,6 @@ import { PermissionsHandler, User } from '@/types';
 
 export default function Authenticated({ user, header, children }: PropsWithChildren<{ user: User, header?: ReactNode }>) {
     const page: { props: { can: PermissionsHandler } } = usePage();
-    console.log(page);
     const [showingNavigationDropdown, setShowingNavigationDropdown] = useState(false);
 
     return (
@@ -27,7 +26,7 @@ export default function Authenticated({ user, header, children }: PropsWithChild
                                 <NavLink href={route('dashboard')} active={route().current('dashboard')}>
                                     Dashboard
                                 </NavLink>
-                                {page.props.can.pesantren_access &&
+                                {(page.props.can.pesantren_access_all || page.props.can.pesantren_access_self) &&
                                     <NavLink href={route('pesantren.index')} active={route().current('pesantren.index')}>
                                         Pesantren
                                     </NavLink>

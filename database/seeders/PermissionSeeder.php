@@ -24,7 +24,7 @@ class PermissionSeeder extends Seeder
             ],
             [
                 'name' => 'user_show',
-                'description' => 'Menampilkan daftar user',
+                'description' => 'Menampilkan informasi user',
             ],
             [
                 'name' => 'user_delete',
@@ -52,7 +52,7 @@ class PermissionSeeder extends Seeder
             ],
             [
                 'name' => 'role_show',
-                'description' => 'Menampilkan daftar role',
+                'description' => 'Menampilkan informasi role',
             ],
             [
                 'name' => 'role_delete',
@@ -76,7 +76,7 @@ class PermissionSeeder extends Seeder
             ],
             [
                 'name' => 'category_show',
-                'description' => 'Menampilkan daftar category',
+                'description' => 'Menampilkan informasi category',
             ],
             [
                 'name' => 'category_delete',
@@ -99,21 +99,22 @@ class PermissionSeeder extends Seeder
                 'description' => 'Mengubah post',
             ],
             [
-                'name' => 'post_show_all',
-                'description' => 'Menampilkan daftar semua post',
-            ],
-            [
-                'name' => 'post_show_self',
-                'description' => 'Menampilkan daftar post sendiri',
+                'name' => 'post_show',
+                'description' => 'Menampilkan informasi post',
             ],
             [
                 'name' => 'post_delete',
                 'description' => 'Menghapus post',
             ],
             [
-                'name' => 'post_access',
-                'description' => 'Mengakses menu post',
+                'name' => 'post_access_all',
+                'description' => 'Mengakses menu seluruh post',
             ],
+            [
+                'name' => 'post_access_self',
+                'description' => 'Mengakses menu post sendiri',
+            ],
+
 
 
 
@@ -127,20 +128,20 @@ class PermissionSeeder extends Seeder
                 'description' => 'Mengubah pesantren',
             ],
             [
-                'name' => 'pesantren_show_all',
-                'description' => 'Menampilkan daftar semua pesantren',
-            ],
-            [
-                'name' => 'pesantren_show_self',
-                'description' => 'Menampilkan daftar pesantren sendiri',
+                'name' => 'pesantren_show',
+                'description' => 'Menampilkan informasi pesantren',
             ],
             [
                 'name' => 'pesantren_delete',
                 'description' => 'Menghapus pesantren',
             ],
             [
-                'name' => 'pesantren_access',
-                'description' => 'Mengakses menu pesantren',
+                'name' => 'pesantren_access_all',
+                'description' => 'Mengakses menu seluruh pesantren',
+            ],
+            [
+                'name' => 'pesantren_access_self',
+                'description' => 'Mengakses menu pesantren sendiri',
             ],
 
 
@@ -156,7 +157,7 @@ class PermissionSeeder extends Seeder
             ],
             [
                 'name' => 'program_show',
-                'description' => 'Menampilkan daftar program',
+                'description' => 'Menampilkan informasi program',
             ],
             [
                 'name' => 'program_delete',
@@ -180,7 +181,7 @@ class PermissionSeeder extends Seeder
             ],
             [
                 'name' => 'tingkat_show',
-                'description' => 'Menampilkan daftar tingkat',
+                'description' => 'Menampilkan informasi tingkat',
             ],
             [
                 'name' => 'tingkat_delete',

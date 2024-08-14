@@ -7,7 +7,6 @@ import { Program, Tingkat } from '@/types';
 import StepsEdit from '@/Components/partial/steps-edit';
 
 export default function Edit({ auth, users, program, tingkat, pesantren }: PageProps & { users: User[], program: Program[], tingkat: Tingkat[], pesantren: Pesantren }) {
-    console.log(route().current())
     return (
         <AuthenticatedLayout
             user={auth.user}

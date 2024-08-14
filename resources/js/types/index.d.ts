@@ -2,7 +2,7 @@ export { type Role } from './role';
 export { type Permission } from './permission';
 export { type Program } from './program';
 export { type Tingkat } from './tingkat';
-export { type Pesantren } from './pesantren';
+export { type Pesantren, type PesantrenWithUserPermissions } from './pesantren';
 export { type PermissionsHandler } from './permissions-handler';
 
 export interface User {

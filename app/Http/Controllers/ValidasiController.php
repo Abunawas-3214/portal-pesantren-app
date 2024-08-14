@@ -6,6 +6,7 @@ use App\Models\Pesantren;
 use App\Models\Validasi;
 use App\Http\Requests\StoreValidasiRequest;
 use App\Http\Requests\UpdateValidasiRequest;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
 
@@ -49,6 +50,7 @@ class ValidasiController extends Controller
      */
     public function edit(Pesantren $pesantren)
     {
+        Gate::authorize('pesantren_edit');
         $pesantren = Pesantren::with('validasi')->find($pesantren->id);
         return inertia('Pesantren/EditValidasi', [
             'pesantren' => $pesantren,
@@ -60,7 +62,7 @@ class ValidasiController extends Controller
      */
     public function update(UpdateValidasiRequest $request, Pesantren $pesantren)
     {
-        // dd($request->validated());
+        Gate::authorize('pesantren_edit');
         if ($request->hasFile('kemenag')) {
             if ($pesantren->validasi()->where('kategori_validasi', 'kemenag')->first()) {
                 Storage::delete("public/pesantren/{$pesantren->slug}/validasi/" . ($pesantren->validasi()->where('kategori_validasi', 'kemenag'))->first()->file);
@@ -91,7 +93,7 @@ class ValidasiController extends Controller
             ]);
         }
 
-        return redirect()->route('pesantren.index');
+        return redirect()->route('pesantren.photo.edit', $pesantren->id);
     }
 
     /**

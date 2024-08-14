@@ -4,8 +4,6 @@ import React from 'react'
 import InputError from '../InputError'
 
 export default function MediaForm({ pesantren }: { pesantren: Pesantren }) {
-    // console.log(pesantren)
-
     const { data, setData, put, errors, reset } = useForm({
         pesantren_id: pesantren.id,
         facebook: pesantren.media?.facebook || '',
@@ -16,11 +14,9 @@ export default function MediaForm({ pesantren }: { pesantren: Pesantren }) {
         website: pesantren.media?.website || '',
     })
 
-    // console.log(data)
     const submit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
         put(route('pesantren.media.update', pesantren.id))
-
     }
 
     return (
@@ -28,7 +24,7 @@ export default function MediaForm({ pesantren }: { pesantren: Pesantren }) {
             <div className="grid grid-cols-6 gap-6">
                 <div className="col-span-6 sm:col-span-3">
                     <label
-                        htmlFor="name"
+                        htmlFor="facebook"
                         className="block text-sm font-medium text-gray-700"
                     >
                         Facebook
@@ -45,7 +41,7 @@ export default function MediaForm({ pesantren }: { pesantren: Pesantren }) {
                 </div>
                 <div className="col-span-6 sm:col-span-3">
                     <label
-                        htmlFor="name"
+                        htmlFor="instagram"
                         className="block text-sm font-medium text-gray-700"
                     >
                         Instagram
@@ -64,7 +60,7 @@ export default function MediaForm({ pesantren }: { pesantren: Pesantren }) {
             <div className="grid grid-cols-6 gap-6">
                 <div className="col-span-6 sm:col-span-3">
                     <label
-                        htmlFor="name"
+                        htmlFor="youtube"
                         className="block text-sm font-medium text-gray-700"
                     >
                         Youtube
@@ -81,7 +77,7 @@ export default function MediaForm({ pesantren }: { pesantren: Pesantren }) {
                 </div>
                 <div className="col-span-6 sm:col-span-3">
                     <label
-                        htmlFor="name"
+                        htmlFor="tiktok"
                         className="block text-sm font-medium text-gray-700"
                     >
                         Tiktok
@@ -100,7 +96,7 @@ export default function MediaForm({ pesantren }: { pesantren: Pesantren }) {
             <div className="grid grid-cols-6 gap-6">
                 <div className="col-span-6 sm:col-span-3">
                     <label
-                        htmlFor="name"
+                        htmlFor="twitter"
                         className="block text-sm font-medium text-gray-700"
                     >
                         Twitter
@@ -117,7 +113,7 @@ export default function MediaForm({ pesantren }: { pesantren: Pesantren }) {
                 </div>
                 <div className="col-span-6 sm:col-span-3">
                     <label
-                        htmlFor="name"
+                        htmlFor="website"
                         className="block text-sm font-medium text-gray-700"
                     >
                         Website
@@ -144,7 +140,7 @@ export default function MediaForm({ pesantren }: { pesantren: Pesantren }) {
                     type="submit"
                     className="inline-flex justify-center px-4 py-2 text-sm font-medium text-white bg-indigo-600 border border-transparent rounded-md shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                 >
-                    Update
+                    Next
                 </button>
             </div>
         </form>

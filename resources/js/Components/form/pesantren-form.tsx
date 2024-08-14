@@ -1,12 +1,14 @@
-import { Link, router, useForm } from "@inertiajs/react";
+import { Link, router, useForm, usePage } from "@inertiajs/react";
 import InputError from "../InputError";
 import { useEffect } from "react";
 import slugify from "slugify";
 import { User } from "@/types/user";
 import { Kecamatan } from "@/Helper/kecamtan";
-import { Pesantren, Program, Tingkat } from '@/types';
+import { PermissionsHandler, Pesantren, Program, Tingkat } from '@/types';
 
 export default function PesantrenForm({ pesantren, users, program, tingkat }: { pesantren?: Pesantren, users: User[], program: Program[], tingkat: Tingkat[] }) {
+    const page: { props: { can: PermissionsHandler } } = usePage();
+
     const selectedProgram = pesantren?.programs.map(program => program.id)
     const selectedTingkat = pesantren?.tingkats.map(tingkat => tingkat.id)
     function extractDate(datetimeString: Date) {
@@ -27,7 +29,7 @@ export default function PesantrenForm({ pesantren, users, program, tingkat }: { 
         kecamatan: pesantren?.kecamatan || '',
         pendiri: pesantren?.pendiri || '',
         pengasuh: pesantren?.pengasuh || '',
-        tanggal_berdiri: extractDate(pesantren?.tanggal_berdiri || new Date()) || '',
+        tanggal_berdiri: pesantren ? extractDate(pesantren.tanggal_berdiri as Date) : '',
         deskripsi: pesantren?.deskripsi || '',
         gender: pesantren?.gender || '',
         program: selectedProgram || [] as String[],
@@ -74,32 +76,33 @@ export default function PesantrenForm({ pesantren, users, program, tingkat }: { 
 
     return (
         <form className="space-y-6" onSubmit={submit}>
-            <div className="grid grid-cols-6 gap-6">
-                <div className="col-span-6 sm:col-span-3">
-                    <label
-                        htmlFor="user_id"
-                        className="block text-sm font-medium text-gray-700"
-                    >
-                        User
-                    </label>
-                    <select
-                        id="user_id"
-                        value={data.user_id}
-                        onChange={(e) => setData('user_id', e.target.value)}
-                        className={`block w-full px-3 py-2 mt-1 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm ${errors.user_id ? "border-red-300 text-red-900 focus:ring-red-500 focus:border-red-500" : ""}`}
-                    >
-                        <option value="">Pilih user</option>
-                        {users.map((user) => (
-                            <option key={user.id} value={user.id}>
-                                {user.name}
-                            </option>
-                        ))}
+            {page.props.can.user_set_pesantren &&
+                <div className="grid grid-cols-6 gap-6">
+                    <div className="col-span-6 sm:col-span-3">
+                        <label
+                            htmlFor="user_id"
+                            className="block text-sm font-medium text-gray-700"
+                        >
+                            User
+                        </label>
+                        <select
+                            id="user_id"
+                            value={data.user_id}
+                            onChange={(e) => setData('user_id', e.target.value)}
+                            className={`block w-full px-3 py-2 mt-1 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm ${errors.user_id ? "border-red-300 text-red-900 focus:ring-red-500 focus:border-red-500" : ""}`}
+                        >
+                            <option value="">Pilih user</option>
+                            {users.map((user) => (
+                                <option key={user.id} value={user.id}>
+                                    {user.name}
+                                </option>
+                            ))}
 
-                    </select>
-                    <InputError message={errors.user_id} />
+                        </select>
+                        <InputError message={errors.user_id} />
+                    </div>
                 </div>
-            </div>
-
+            }
             <div className="grid grid-cols-6 gap-6">
                 <div className="col-span-6 sm:col-span-3">
                     <label
@@ -402,7 +405,7 @@ export default function PesantrenForm({ pesantren, users, program, tingkat }: { 
                     type="submit"
                     className="inline-flex justify-center px-4 py-2 text-sm font-medium text-white bg-indigo-600 border border-transparent rounded-md shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                 >
-                    {pesantren ? 'Update' : 'Create'}
+                    {pesantren ? 'Next' : 'Create'}
                 </button>
             </div>
         </form>

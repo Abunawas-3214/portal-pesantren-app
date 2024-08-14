@@ -1,4 +1,4 @@
-import { Pesantren } from "@/types";
+import { PesantrenWithUserPermissions } from "@/types";
 import { Link, router } from "@inertiajs/react";
 import { ColumnDef } from "@tanstack/react-table";
 import { Pencil, Trash } from "lucide-react";
@@ -11,7 +11,7 @@ function deletePesantren(id: string) {
     }
 }
 
-export const columns: ColumnDef<Pesantren>[] = [
+export const columns: ColumnDef<PesantrenWithUserPermissions>[] = [
     {
         accessorKey: "id",
         header: "No",
@@ -65,20 +65,25 @@ export const columns: ColumnDef<Pesantren>[] = [
         header: "Action",
         cell: ({ row }) => {
             const id = row.original.id;
+            const userPermissions = row.original.userPermissions;
             return (
                 <div className="flex items-center justify-center gap-2">
-                    <Link
-                        href={route("pesantren.edit", { id })}
-                        className="inline-flex items-center justify-center p-2 text-sm font-medium text-white bg-yellow-400 border border-transparent rounded-md shadow-sm hover:bg-yellow-500 focus:outline-none focus:ring-2 focus:ring-yellow-300 focus:ring-offset-2 sm:w-auto"
-                    >
-                        <Pencil className="w-4 h-4" />
-                    </Link>
-                    <button
-                        onClick={() => deletePesantren(id)}
-                        className="inline-flex items-center justify-center p-2 text-sm font-medium text-white bg-red-600 border border-transparent rounded-md shadow-sm hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 sm:w-auto"
-                    >
-                        <Trash className="w-4 h-4" />
-                    </button>
+                    {userPermissions.pesantren_edit &&
+                        <Link
+                            href={route("pesantren.edit", id)}
+                            className="inline-flex items-center justify-center p-2 text-sm font-medium text-white bg-yellow-400 border border-transparent rounded-md shadow-sm hover:bg-yellow-500 focus:outline-none focus:ring-2 focus:ring-yellow-300 focus:ring-offset-2 sm:w-auto"
+                        >
+                            <Pencil className="w-4 h-4" />
+                        </Link>
+                    }
+                    {userPermissions.pesantren_delete &&
+                        <button
+                            onClick={() => deletePesantren(id)}
+                            className="inline-flex items-center justify-center p-2 text-sm font-medium text-white bg-red-600 border border-transparent rounded-md shadow-sm hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 sm:w-auto"
+                        >
+                            <Trash className="w-4 h-4" />
+                        </button>
+                    }
                 </div>
             );
         },

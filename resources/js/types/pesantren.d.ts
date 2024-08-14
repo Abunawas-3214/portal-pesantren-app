@@ -1,3 +1,4 @@
+import { PermissionsHandler } from "./permissions-handler";
 import { Program } from "./program";
 import { SocialMedia } from "./social-media";
 import { Tingkat } from "./tingkat";
@@ -26,4 +27,8 @@ export interface Pesantren {
     tingkats: Tingkat[];
     media: SocialMedia;
     validasi: Validasi[];
+}
+
+export interface PesantrenWithUserPermissions extends Pesantren {
+    userPermissions: PermissionsHandler;
 }

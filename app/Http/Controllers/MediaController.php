@@ -6,6 +6,7 @@ use App\Models\Media;
 use App\Http\Requests\StoreMediaRequest;
 use App\Http\Requests\UpdateMediaRequest;
 use App\Models\Pesantren;
+use Illuminate\Support\Facades\Gate;
 
 class MediaController extends Controller
 {
@@ -46,6 +47,8 @@ class MediaController extends Controller
      */
     public function edit(Pesantren $pesantren)
     {
+        Gate::authorize('pesantren_edit');
+
         $pesantren = Pesantren::with('media')->find($pesantren->id);
 
         return inertia('Pesantren/EditMedia', [
@@ -58,9 +61,9 @@ class MediaController extends Controller
      */
     public function update(UpdateMediaRequest $request, Pesantren $pesantren)
     {
-        // dd($request->all());
+        Gate::authorize('pesantren_edit');
         $pesantren->media()->update($request->validated());
-        return redirect()->route('pesantren.index');
+        return redirect()->route('pesantren.validasi.edit', $pesantren->id);
     }
 
     /**

@@ -19,20 +19,20 @@ class RolePermissionTableSeeder extends Seeder
         $pesantren_permission = Permission::whereIn('name', [
             'post_create',
             'post_edit',
-            'post_show_self',
+            'post_show',
             'post_delete',
-            'post_access',
+            'post_access_self',
             'pesantren_edit',
-            'pesantren_show_self',
-            'pesantren_access',
+            'pesantren_show',
+            'pesantren_access_self',
         ])->get();
 
         $kontributor_permission = Permission::whereIn('name', [
             'post_create',
             'post_edit',
-            'post_show_self',
+            'post_show',
             'post_delete',
-            'post_access',
+            'post_access_self',
         ])->get();
 
         Role::find(1)->permissions()->attach($admin_permissions);

@@ -21,16 +21,17 @@ class PesantrenController extends Controller
      */
     public function index()
     {
-        Gate::authorize('pesantren_access');
-
-        if (Gate::check('pesantren_show_all')) {
+        Gate::define('pesantren_access', function ($user) {
+            return $user->can('pesantren_access_all') || $user->can('pesantren_access_self');
+        });
+        if (Gate::check('pesantren_access_all')) {
             $pesantrenData = Pesantren::with('user', 'programs', 'tingkats')->get();
             return inertia('Pesantren/Index', [
                 'pesantrenData' => $pesantrenData
             ]);
         }
 
-        if (Gate::check('pesantren_show_self')) {
+        if (Gate::check('pesantren_access_self')) {
             $pesantrenData = Pesantren::with('user', 'programs', 'tingkats')
                 ->where('user_id', auth()->user()->id)
                 ->get();
@@ -38,12 +39,6 @@ class PesantrenController extends Controller
                 'pesantrenData' => $pesantrenData
             ]);
         }
-
-        // $pesantrenData = Pesantren::with('user', 'programs', 'tingkats')->get();
-
-        // return inertia('Pesantren/Index', [
-        //     'pesantrenData' => $pesantrenData
-        // ]);
     }
 
     /**
@@ -181,7 +176,7 @@ class PesantrenController extends Controller
         $pesantren->programs()->sync($request->program);
         $pesantren->tingkats()->sync($request->tingkat);
 
-        return redirect()->route('pesantren.index');
+        return redirect()->route('pesantren.media.edit', $pesantren->id);
     }
 
     /**

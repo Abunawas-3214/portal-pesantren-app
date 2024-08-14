@@ -6,6 +6,7 @@ use App\Models\Pesantren;
 use App\Models\PesantrenPhoto;
 use App\Http\Requests\StorePesantrenPhotoRequest;
 use App\Http\Requests\UpdatePesantrenPhotoRequest;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Storage;
 
 class PesantrenPhotoController extends Controller
@@ -47,8 +48,10 @@ class PesantrenPhotoController extends Controller
      */
     public function edit(Pesantren $pesantren)
     {
+        Gate::authorize('pesantren_edit');
+
         $pesantren = Pesantren::with('photos')->find($pesantren->id);
-        // dd($pesantren);
+
         return inertia('Pesantren/EditPhoto', [
             'pesantren' => $pesantren
         ]);
@@ -59,7 +62,7 @@ class PesantrenPhotoController extends Controller
      */
     public function update(UpdatePesantrenPhotoRequest $request, Pesantren $pesantren)
     {
-        // dd($request->validated());
+        Gate::authorize('pesantren_edit');
         if ($request->hasFile('photos')) {
             $photos = $request->file('photos');
             if ($pesantren->photos()->count() > 0) {

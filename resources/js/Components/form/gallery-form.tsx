@@ -42,9 +42,6 @@ export default function GalleryForm({ pesantren }: { pesantren: Pesantren }) {
         })
 
     }
-
-    console.log(data)
-
     const submit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
         post(route('pesantren.photo.update', pesantren.id))
@@ -68,7 +65,7 @@ export default function GalleryForm({ pesantren }: { pesantren: Pesantren }) {
                         htmlFor="photos"
                         className="block text-sm font-medium text-center text-gray-700"
                     >
-                        Foto-foto Pesantren
+                        Foto-foto Pesantren <span className='text-xs text-gray-400'>(Max 10 Foto, dengan ukuran max 10Mb per Foto)</span>
                     </label>
                     <input
                         multiple
@@ -112,7 +109,7 @@ export default function GalleryForm({ pesantren }: { pesantren: Pesantren }) {
                     type="submit"
                     className="inline-flex justify-center px-4 py-2 text-sm font-medium text-white bg-indigo-600 border border-transparent rounded-md shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                 >
-                    Update
+                    Save
                 </button>
             </div>
         </form>

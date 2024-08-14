@@ -10,8 +10,6 @@ interface DataTableProps<TData, TValue> {
     data: TData[]
 }
 
-import React from 'react'
-
 export default function TablePesantren<TData, TValue>({
     columns,
     data,
