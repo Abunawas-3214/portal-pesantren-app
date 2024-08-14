@@ -63,16 +63,16 @@ class PesantrenPhotoController extends Controller
         if ($request->hasFile('photos')) {
             $photos = $request->file('photos');
             if ($pesantren->photos()->count() > 0) {
-                Storage::deleteDirectory("public/photos/{$pesantren->slug}");
+                Storage::deleteDirectory("public/pesantren/{$pesantren->slug}/photos");
                 $pesantren->photos()->delete();
             }
             for ($i = 0; $i < count($photos); $i++) {
                 $photo = $photos[$i];
                 $photoName = $i + 1 . '.' . $photo->getClientOriginalExtension();
-                $photoPath = $photo->storeAs("public/photos/{$pesantren->slug}", $photoName);
+                $photo->storeAs("public/pesantren/{$pesantren->slug}/photos", $photoName);
                 $pesantren->photos()->create([
                     'pesantren_id' => $pesantren->id,
-                    'file' => $photoPath
+                    'file' => $photoName
                 ]);
             }
         }

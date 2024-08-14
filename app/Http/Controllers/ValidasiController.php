@@ -63,31 +63,31 @@ class ValidasiController extends Controller
         // dd($request->validated());
         if ($request->hasFile('kemenag')) {
             if ($pesantren->validasi()->where('kategori_validasi', 'kemenag')->first()) {
-                Storage::delete($pesantren->validasi()->where('kategori_validasi', 'kemenag')->first()->file);
+                Storage::delete("public/pesantren/{$pesantren->slug}/validasi/" . ($pesantren->validasi()->where('kategori_validasi', 'kemenag'))->first()->file);
                 $pesantren->validasi()->where('kategori_validasi', 'kemenag')->first()->delete();
             }
             $file = $request->file('kemenag');
             $filename = 'kemenag.' . $file->getClientOriginalExtension();
-            $path = $file->storeAs("public/validasi/{$pesantren->slug}", $filename);
+            $file->storeAs("public/pesantren/{$pesantren->slug}/validasi", $filename);
             $pesantren->validasi()->create([
                 'pesantren_id' => $pesantren->id,
                 'kategori_validasi' => 'kemenag',
-                'file' => $path,
+                'file' => $filename,
             ]);
         }
 
         if ($request->hasFile('rmi')) {
             if ($pesantren->validasi()->where('kategori_validasi', 'rmi')->first()) {
-                Storage::delete($pesantren->validasi()->where('kategori_validasi', 'rmi')->first()->file);
+                Storage::delete("public/pesantren/{$pesantren->slug}/validasi/" . ($pesantren->validasi()->where('kategori_validasi', 'rmi'))->first()->file);
                 $pesantren->validasi()->where('kategori_validasi', 'rmi')->first()->delete();
             }
             $file = $request->file('rmi');
             $filename = 'rmi.' . $file->getClientOriginalExtension();
-            $path = $file->storeAs("public/validasi/{$pesantren->slug}", $filename);
+            $file->storeAs("public/pesantren/{$pesantren->slug}/validasi", $filename);
             $pesantren->validasi()->create([
                 'pesantren_id' => $pesantren->id,
                 'kategori_validasi' => 'rmi',
-                'file' => $path,
+                'file' => $filename,
             ]);
         }
 

@@ -23,8 +23,7 @@ class PesantrenController extends Controller
         $pesantrenData = Pesantren::with('user', 'programs', 'tingkats')->get();
 
         return inertia('Pesantren/Index', [
-            'pesantrenData' => $pesantrenData,
-            'img' => asset('public/photos/pesantren-coba/1.jpg')
+            'pesantrenData' => $pesantrenData
         ]);
     }
 
@@ -58,16 +57,16 @@ class PesantrenController extends Controller
 
         if ($request->hasFile('logo')) {
             $logo = $request->file('logo');
-            $filename = $request->slug . '.' . $logo->getClientOriginalExtension();
-            $pathLogo = $logo->storeAs('public/logo', $filename);
-            $pesantren->logo = $pathLogo;
+            $filename = 'logo.' . $logo->getClientOriginalExtension();
+            $logo->storeAs("public/pesantren/{$pesantren->slug}", $filename);
+            $pesantren->logo = $filename;
         }
 
         if ($request->hasFile('foto_sampul')) {
             $foto_sampul = $request->file('foto_sampul');
-            $filename = $request->slug . '.' . $foto_sampul->getClientOriginalExtension();
-            $pathFotoSampul = $foto_sampul->storeAs('public/foto_sampul', $filename);
-            $pesantren->foto_sampul = $pathFotoSampul;
+            $filename = 'foto_sampul.' . $foto_sampul->getClientOriginalExtension();
+            $foto_sampul->storeAs("public/pesantren/{$pesantren->slug}", $filename);
+            $pesantren->foto_sampul = $filename;
         }
 
         $pesantren->save();
@@ -121,59 +120,43 @@ class PesantrenController extends Controller
     public function update(UpdatePesantrenRequest $request, Pesantren $pesantren)
     {
         // dd($request->all());
-        $photoCount = $pesantren->photos()->count();
 
-        dd($photoCount);
+        if ($pesantren->slug != $request->slug) {
+            rename(storage_path("app/public/pesantren/{$pesantren->slug}"), storage_path("app/public/pesantren/{$request->slug}"));
+        }
 
+        $pesantren->update($request->validated());
 
-        // if ($pesantren->slug != $request->slug) {
-        //     if ($pesantren->validasi()) {
-        //         rename(storage_path("app/public/validasi/{$pesantren->slug}"), storage_path("app/public/validasi/{$request->slug}"));
-        //         if ($pesantren->validasi()->where('kategori_validasi', 'kemenag')->first()) {
-        //             $pesantren->validasi()->where('kategori_validasi', 'kemenag')->first()->update([
-        //                 'file' => "public/validasi/{$request->slug}/kemenag.pdf"
-        //             ]);
-        //         }
-        //         if ($pesantren->validasi()->where('kategori_validasi', 'rmi')->first()) {
-        //             $pesantren->validasi()->where('kategori_validasi', 'rmi')->first()->update([
-        //                 'file' => "public/validasi/{$request->slug}/rmi.pdf"
-        //             ]);
-        //         }
-        //     }
+        if ($request->hasFile('logo')) {
+            if ($pesantren->logo) {
+                Storage::delete("public/pesantren/{$pesantren->slug}/{$pesantren->logo}");
+            }
+            $logo = $request->file('logo');
+            $filename = 'logo.' . $logo->getClientOriginalExtension();
+            $logo->storeAs("public/pesantren/{$pesantren->slug}", $filename);
+            $pesantren->update([
+                'logo' => $filename,
+            ]);
+            $pesantren->save();
+        }
 
-        //     if ($pesantren->photos()) {
-        //         rename(storage_path("app/public/photos/{$pesantren->slug}"), storage_path("app/public/photos/{$request->slug}"));
-        //     }
-        // }
+        if ($request->hasFile('foto_sampul')) {
+            if ($pesantren->foto_sampul) {
+                Storage::delete("public/pesantren/{$pesantren->slug}/{$pesantren->foto_sampul}");
+            }
+            $foto_sampul = $request->file('foto_sampul');
+            $filename = 'foto_sampul.' . $foto_sampul->getClientOriginalExtension();
+            $foto_sampul->storeAs("public/pesantren/{$pesantren->slug}", $filename);
+            $pesantren->update([
+                'foto_sampul' => $filename,
+            ]);
+            $pesantren->save();
+        }
 
-        // $pesantren->update($request->validated());
+        $pesantren->programs()->sync($request->program);
+        $pesantren->tingkats()->sync($request->tingkat);
 
-        // if ($request->hasFile('logo')) {
-        //     if ($pesantren->logo) {
-        //         Storage::delete($pesantren->logo);
-        //     }
-        //     $logo = $request->file('logo');
-        //     $filename = $request->slug . '.' . $logo->getClientOriginalExtension();
-        //     $pathLogo = $logo->storeAs('public/logo', $filename);
-        //     $pesantren->logo = $pathLogo;
-        //     $pesantren->save();
-        // }
-
-        // if ($request->hasFile('foto_sampul')) {
-        //     if ($pesantren->foto_sampul) {
-        //         Storage::delete($pesantren->foto_sampul);
-        //     }
-        //     $foto_sampul = $request->file('foto_sampul');
-        //     $filename = $request->slug . '.' . $foto_sampul->getClientOriginalExtension();
-        //     $pathFotoSampul = $foto_sampul->storeAs('public/foto_sampul', $filename);
-        //     $pesantren->foto_sampul = $pathFotoSampul;
-        //     $pesantren->save();
-        // }
-
-        // $pesantren->programs()->sync($request->program);
-        // $pesantren->tingkats()->sync($request->tingkat);
-
-        // return redirect()->route('pesantren.index');
+        return redirect()->route('pesantren.index');
     }
 
     /**
@@ -181,21 +164,7 @@ class PesantrenController extends Controller
      */
     public function destroy(Pesantren $pesantren)
     {
-        if ($pesantren->logo) {
-            Storage::delete($pesantren->logo);
-        }
-        if ($pesantren->foto_sampul) {
-            Storage::delete($pesantren->foto_sampul);
-        }
-
-        if ($pesantren->validasi()) {
-            Storage::deleteDirectory("public/validasi/{$pesantren->slug}");
-        }
-
-        if ($pesantren->photos()) {
-            Storage::deleteDirectory("public/photos/{$pesantren->slug}");
-        }
-
+        Storage::deleteDirectory("public/pesantren/{$pesantren->slug}");
         $pesantren->delete();
         return redirect()->route('pesantren.index');
     }

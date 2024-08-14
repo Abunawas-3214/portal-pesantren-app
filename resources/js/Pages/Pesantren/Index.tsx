@@ -4,8 +4,7 @@ import { PageProps, Pesantren } from '@/types';
 import TablePesantren from '@/Components/table/pesantren/table-pesantren';
 import { columns } from '@/Components/table/pesantren/column';
 
-export default function Index({ auth, pesantrenData, img }: PageProps & { pesantrenData: Pesantren[] }) {
-    console.log(img)
+export default function Index({ auth, pesantrenData }: PageProps & { pesantrenData: Pesantren[] }) {
     return (
         <AuthenticatedLayout
             user={auth.user}
