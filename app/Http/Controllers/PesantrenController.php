@@ -148,29 +148,37 @@ class PesantrenController extends Controller
         $pesantren->update($request->validated());
 
         if ($request->hasFile('logo')) {
-            if ($pesantren->logo) {
-                Storage::delete("public/pesantren/{$pesantren->slug}/{$pesantren->logo}");
-            }
             $logo = $request->file('logo');
             $filename = 'logo.' . $logo->getClientOriginalExtension();
+
+            if ($pesantren->logo) {
+                Storage::delete("public/pesantren/{$pesantren->slug}/{$pesantren->logo}");
+                $pesantren->update([
+                    'logo' => $filename,
+                ]);
+            } else {
+                $pesantren->logo = $filename;
+                $pesantren->save();
+            }
+
             $logo->storeAs("public/pesantren/{$pesantren->slug}", $filename);
-            $pesantren->update([
-                'logo' => $filename,
-            ]);
-            $pesantren->save();
         }
 
         if ($request->hasFile('foto_sampul')) {
-            if ($pesantren->foto_sampul) {
-                Storage::delete("public/pesantren/{$pesantren->slug}/{$pesantren->foto_sampul}");
-            }
             $foto_sampul = $request->file('foto_sampul');
             $filename = 'foto_sampul.' . $foto_sampul->getClientOriginalExtension();
+
+            if ($pesantren->foto_sampul) {
+                Storage::delete("public/pesantren/{$pesantren->slug}/{$pesantren->foto_sampul}");
+                $pesantren->update([
+                    'foto_sampul' => $filename,
+                ]);
+            } else {
+                $pesantren->foto_sampul = $filename;
+                $pesantren->save();
+            }
+
             $foto_sampul->storeAs("public/pesantren/{$pesantren->slug}", $filename);
-            $pesantren->update([
-                'foto_sampul' => $filename,
-            ]);
-            $pesantren->save();
         }
 
         $pesantren->programs()->sync($request->program);
