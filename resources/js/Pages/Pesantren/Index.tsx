@@ -18,7 +18,7 @@ export default function Index({ auth, pesantrenData }: PageProps & { pesantrenDa
                         Pesantren List
                     </h1>
                     <p className="text-sm text-gray-700">
-                        A list of all Pesantren.
+                        A list of all Pesantren in Kota Malang.
                     </p>
                 </div>
 
