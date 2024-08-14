@@ -3,6 +3,7 @@ export { type Permission } from './permission';
 export { type Program } from './program';
 export { type Tingkat } from './tingkat';
 export { type Pesantren } from './pesantren';
+export { type PermissionsHandler } from './permissions-handler';
 
 export interface User {
     id: number;

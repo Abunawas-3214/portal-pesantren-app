@@ -3,10 +3,12 @@ import ApplicationLogo from '@/Components/ApplicationLogo';
 import Dropdown from '@/Components/Dropdown';
 import NavLink from '@/Components/NavLink';
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink';
-import { Link } from '@inertiajs/react';
-import { User } from '@/types';
+import { Link, usePage } from '@inertiajs/react';
+import { PermissionsHandler, User } from '@/types';
 
 export default function Authenticated({ user, header, children }: PropsWithChildren<{ user: User, header?: ReactNode }>) {
+    const page: { props: { can: PermissionsHandler } } = usePage();
+    console.log(page);
     const [showingNavigationDropdown, setShowingNavigationDropdown] = useState(false);
 
     return (
@@ -25,9 +27,11 @@ export default function Authenticated({ user, header, children }: PropsWithChild
                                 <NavLink href={route('dashboard')} active={route().current('dashboard')}>
                                     Dashboard
                                 </NavLink>
-                                <NavLink href={route('pesantren.index')} active={route().current('pesantren.index')}>
-                                    Pesantren
-                                </NavLink>
+                                {page.props.can.pesantren_access &&
+                                    <NavLink href={route('pesantren.index')} active={route().current('pesantren.index')}>
+                                        Pesantren
+                                    </NavLink>
+                                }
                                 {/* <NavLink href={route('dashboard')} active={route().current('dashboard')}>
                                     Post
                                 </NavLink> */}
@@ -37,12 +41,16 @@ export default function Authenticated({ user, header, children }: PropsWithChild
                                 {/* <NavLink href={route('dashboard')} active={route().current('dashboard')}>
                                     Tingkat
                                 </NavLink> */}
-                                <NavLink href={route('user.index')} active={route().current('user.index')}>
-                                    User
-                                </NavLink>
-                                <NavLink href={route('role.index')} active={route().current('role.index')}>
-                                    Role
-                                </NavLink>
+                                {page.props.can.user_access &&
+                                    <NavLink href={route('user.index')} active={route().current('user.index')}>
+                                        User
+                                    </NavLink>
+                                }
+                                {page.props.can.role_access &&
+                                    <NavLink href={route('role.index')} active={route().current('role.index')}>
+                                        Role
+                                    </NavLink>
+                                }
                             </div>
                         </div>
 

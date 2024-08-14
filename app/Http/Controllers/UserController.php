@@ -7,7 +7,7 @@ use App\Http\Requests\UpdateUserRequest;
 use App\Http\Resources\UserResource;
 use App\Models\Role;
 use App\Models\User;
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class UserController extends Controller
 {
@@ -16,6 +16,7 @@ class UserController extends Controller
      */
     public function index()
     {
+        Gate::authorize('user_access');
         $users = User::with('roles')->get();
         return inertia('User/Index', [
             'users' => UserResource::collection($users)
@@ -27,6 +28,7 @@ class UserController extends Controller
      */
     public function create()
     {
+        Gate::authorize('user_create');
         $roles = Role::where('id', '!=', 1)->get();
         return inertia('User/Create', [
             'dataRole' => $roles
@@ -38,6 +40,7 @@ class UserController extends Controller
      */
     public function store(StoreUserRequest $request)
     {
+        Gate::authorize('user_create');
         $user = User::create($request->validated());
 
         $roles = $request->roles;
@@ -60,6 +63,8 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
+        Gate::authorize('user_edit');
+
         $roles = Role::where('id', '!=', 1)->get();
         $user->load('roles');
         return inertia('User/Edit', [
@@ -73,6 +78,8 @@ class UserController extends Controller
      */
     public function update(UpdateUserRequest $request, User $user)
     {
+        Gate::authorize('user_edit');
+
         $validatedData = $request->validated();
 
         $user->name = $validatedData['name'];
@@ -95,6 +102,8 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
+        Gate::authorize('user_delete');
+
         $user->delete();
         return redirect()->route('user.index');
     }

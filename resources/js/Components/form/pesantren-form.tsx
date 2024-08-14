@@ -71,6 +71,7 @@ export default function PesantrenForm({ pesantren, users, program, tingkat }: { 
             post(route('pesantren.store'))
         }
     }
+
     return (
         <form className="space-y-6" onSubmit={submit}>
             <div className="grid grid-cols-6 gap-6">

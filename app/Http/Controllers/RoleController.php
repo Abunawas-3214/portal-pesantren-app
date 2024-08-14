@@ -7,6 +7,7 @@ use App\Http\Requests\StoreRoleRequest;
 use App\Http\Requests\UpdateRoleRequest;
 use App\Http\Resources\RoleResource;
 use App\Models\Permission;
+use Illuminate\Support\Facades\Gate;
 
 class RoleController extends Controller
 {
@@ -15,6 +16,7 @@ class RoleController extends Controller
      */
     public function index()
     {
+        Gate::authorize('role_access');
         $roles = Role::with('permissions')->get();
         return inertia('Role/Index', [
             'roles' => RoleResource::collection($roles)
@@ -26,6 +28,7 @@ class RoleController extends Controller
      */
     public function create()
     {
+        Gate::authorize('role_create');
         $permissions = Permission::all();
         return inertia('Role/Create', [
             'permissions' => $permissions
@@ -37,6 +40,8 @@ class RoleController extends Controller
      */
     public function store(StoreRoleRequest $request)
     {
+        Gate::authorize('role_create');
+
         $role = Role::create($request->validated());
 
         $permissions = $request->permissions;
@@ -59,6 +64,7 @@ class RoleController extends Controller
      */
     public function edit(Role $role)
     {
+        Gate::authorize('role_edit');
         $perimssions = Permission::all();
         $role->load('permissions');
         return inertia('Role/Edit', [
@@ -72,6 +78,8 @@ class RoleController extends Controller
      */
     public function update(UpdateRoleRequest $request, Role $role)
     {
+        Gate::authorize('role_edit');
+
         $role->update($request->validated());
 
         $permissions = $request->permissions;
@@ -86,6 +94,7 @@ class RoleController extends Controller
      */
     public function destroy(Role $role)
     {
+        Gate::authorize('role_delete');
         $role->delete();
         return redirect()->route('role.index');
     }

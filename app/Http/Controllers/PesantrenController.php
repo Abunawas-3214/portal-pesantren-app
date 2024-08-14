@@ -12,6 +12,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Gate;
 
 class PesantrenController extends Controller
 {
@@ -20,11 +21,29 @@ class PesantrenController extends Controller
      */
     public function index()
     {
-        $pesantrenData = Pesantren::with('user', 'programs', 'tingkats')->get();
+        Gate::authorize('pesantren_access');
 
-        return inertia('Pesantren/Index', [
-            'pesantrenData' => $pesantrenData
-        ]);
+        if (Gate::check('pesantren_show_all')) {
+            $pesantrenData = Pesantren::with('user', 'programs', 'tingkats')->get();
+            return inertia('Pesantren/Index', [
+                'pesantrenData' => $pesantrenData
+            ]);
+        }
+
+        if (Gate::check('pesantren_show_self')) {
+            $pesantrenData = Pesantren::with('user', 'programs', 'tingkats')
+                ->where('user_id', auth()->user()->id)
+                ->get();
+            return inertia('Pesantren/Index', [
+                'pesantrenData' => $pesantrenData
+            ]);
+        }
+
+        // $pesantrenData = Pesantren::with('user', 'programs', 'tingkats')->get();
+
+        // return inertia('Pesantren/Index', [
+        //     'pesantrenData' => $pesantrenData
+        // ]);
     }
 
     /**
@@ -32,6 +51,8 @@ class PesantrenController extends Controller
      */
     public function create()
     {
+        Gate::authorize('pesantren_create');
+
         $users = User::HasPesantrenEditPermissionAndNoPesantren()->get();
 
         $program = Program::all();
@@ -49,6 +70,8 @@ class PesantrenController extends Controller
      */
     public function store(StorePesantrenRequest $request)
     {
+        Gate::authorize('pesantren_create');
+
         $pesantren = new Pesantren;
         $uuid = Str::uuid()->__tostring();
         $pesantren->id = $uuid;
@@ -98,6 +121,8 @@ class PesantrenController extends Controller
      */
     public function edit(Pesantren $pesantren)
     {
+        Gate::authorize('pesantren_edit');
+
         $users = User::HasPesantrenEditPermissionAndNoPesantren()->get();
         $users = $users->push(User::find($pesantren->user_id));
 
@@ -119,7 +144,7 @@ class PesantrenController extends Controller
      */
     public function update(UpdatePesantrenRequest $request, Pesantren $pesantren)
     {
-        // dd($request->all());
+        Gate::authorize('pesantren_edit');
 
         if ($pesantren->slug != $request->slug) {
             rename(storage_path("app/public/pesantren/{$pesantren->slug}"), storage_path("app/public/pesantren/{$request->slug}"));
@@ -164,6 +189,8 @@ class PesantrenController extends Controller
      */
     public function destroy(Pesantren $pesantren)
     {
+        Gate::authorize('pesantren_delete');
+
         Storage::deleteDirectory("public/pesantren/{$pesantren->slug}");
         $pesantren->delete();
         return redirect()->route('pesantren.index');
