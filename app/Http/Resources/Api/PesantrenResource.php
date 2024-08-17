@@ -17,24 +17,20 @@ class PesantrenResource extends JsonResource
         return [
             'name' => $this->name,
             'slug' => $this->slug,
+            'alamat' => $this->alamat,
             'kecamatan' => $this->kecamatan,
+            'pendiri' => $this->pendiri,
+            'pengasuh' => $this->pengasuh,
+            'tanggal_berdiri' => $this->tanggal_berdiri,
+            'jumlah_santri' => $this->jumlah_santri,
+            'deskripsi' => $this->deskripsi,
             'gender' => $this->gender,
+            'program_unggulan' => $this->program_unggulan,
+            'program' => $this->programs->pluck('name'),
+            'tingkat' => $this->tingkats->pluck('name'),
+            'contact' => $this->contact,
             'logo' => asset("storage/pesantren/{$this->slug}/logo.png"),
-            'foto_sampul' => asset("storage/pesantren/{$this->slug}/foto_sampul.png"),
-            'program' => $this->whenLoaded('programs', function () {
-                return $this->programs->map(function ($program) {
-                    return [
-                        'name' => $program->name,
-                    ];
-                });
-            }),
-            'tingkat' => $this->whenLoaded('tingkats', function () {
-                return $this->tingkats->map(function ($tingkat) {
-                    return [
-                        'name' => $tingkat->name,
-                    ];
-                });
-            })
+            'video_profil' => $this->video_profil,
         ];
     }
 }

@@ -4,15 +4,14 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
     public function up(): void
     {
         Schema::create('pesantrens', function (Blueprint $table) {
-            $table->uuid('id')->primary();            
+            $table->uuid('id')->primary();
             $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
             $table->string('name');
             $table->string('slug')->unique();
@@ -22,6 +21,7 @@ return new class extends Migration
             $table->string('pengasuh')->nullable();
             $table->datetime('tanggal_berdiri')->nullable();
             $table->text('deskripsi')->nullable();
+            $table->integer('jumlah_santri')->nullable();
             $table->enum('gender', ['putra', 'putri', 'putra_putri'])->nullable();
             $table->string('program_unggulan')->nullable();
             $table->string('contact')->nullable();

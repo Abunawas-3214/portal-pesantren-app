@@ -5,6 +5,7 @@ import NavLink from '@/Components/NavLink';
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink';
 import { Link, usePage } from '@inertiajs/react';
 import { PermissionsHandler, User } from '@/types';
+import rmiLogo from "@/assets/svg/logos/logo_rmi.svg";
 
 export default function Authenticated({ user, header, children }: PropsWithChildren<{ user: User, header?: ReactNode }>) {
     const page: { props: { can: PermissionsHandler } } = usePage();
@@ -18,7 +19,8 @@ export default function Authenticated({ user, header, children }: PropsWithChild
                         <div className="flex">
                             <div className="flex items-center shrink-0">
                                 <Link href="/">
-                                    <ApplicationLogo className="block w-auto text-gray-800 fill-current h-9" />
+                                    <img src={rmiLogo} alt="Logo RMI" className='block w-auto h-9' />
+                                    {/* <ApplicationLogo className="block w-auto text-gray-800 fill-current h-9" /> */}
                                 </Link>
                             </div>
 

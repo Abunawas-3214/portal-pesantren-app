@@ -16,6 +16,7 @@ export interface Pesantren {
     pengasuh: string | null;
     tanggal_berdiri: Date | null;
     deskripsi: string | null;
+    jumlah_santri: number | null;
     program_unggulan: string | null;
     logo: string | null | File;
     contact: number | null;

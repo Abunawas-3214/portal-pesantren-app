@@ -9,3 +9,4 @@ Route::get('/api/user', function (Request $request) {
 })->middleware('auth:sanctum');
 
 Route::get('/pesantren', [PesantrenController::class, 'index']);
+Route::get('/pesantren/{slug}', [PesantrenController::class, 'show']);

@@ -13,7 +13,7 @@ class Pesantren extends Model
     protected $primaryKey = 'id';
     protected $keyType = 'string';
     public $incrementing = false;
-    protected $fillable = ['user_id', 'name', 'slug', 'kecamatan', 'alamat', 'pendiri', 'pengasuh', 'tanggal_berdiri', 'deskripsi', 'gender', 'program_unggulan', 'contact', 'video_profil'];
+    protected $fillable = ['user_id', 'name', 'slug', 'kecamatan', 'alamat', 'pendiri', 'pengasuh', 'tanggal_berdiri', 'jumlah_santri', 'deskripsi', 'gender', 'program_unggulan', 'contact', 'video_profil'];
 
     public function user()
     {
@@ -43,5 +43,10 @@ class Pesantren extends Model
     public function validasi()
     {
         return $this->hasMany(Validasi::class);
+    }
+
+    public function usaha()
+    {
+        return $this->hasMany(UsahaPesantren::class);
     }
 }
