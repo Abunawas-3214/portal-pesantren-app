@@ -8,7 +8,7 @@ export default function GalleryForm({ pesantren }: { pesantren: Pesantren }) {
     const [previewImages, setPreviewImages] = React.useState<File[]>([])
     const maxFiles = 10
 
-    const { data, setData, post, put, errors, reset } = useForm({
+    const { data, setData, post, put, errors, reset, processing } = useForm({
         pesantren_id: pesantren.id,
         photos: null as File[] | null,
         video_profil: '',
@@ -62,12 +62,12 @@ export default function GalleryForm({ pesantren }: { pesantren: Pesantren }) {
 
                 <div className="w-full sm:w-1/2">
                     <label
-                        htmlFor="photos"
                         className="block text-sm font-medium text-center text-gray-700"
                     >
                         Foto-foto Pesantren <span className='text-xs text-gray-400'>(Max 10 Foto, dengan ukuran max 10Mb per Foto)</span>
                     </label>
                     <input
+                        disabled={processing}
                         multiple
                         onChange={handleFileChange}
                         type="file"
@@ -82,12 +82,12 @@ export default function GalleryForm({ pesantren }: { pesantren: Pesantren }) {
             <div className="flex justify-center">
                 <div className="w-full sm:w-1/2">
                     <label
-                        htmlFor="video_profil"
                         className="block text-sm font-medium text-center text-gray-700"
                     >
                         Link Video Profil
                     </label>
                     <input
+                        disabled={processing}
                         value={data.video_profil}
                         onChange={(e) => setData('video_profil', e.target.value)}
                         type="text"
@@ -100,14 +100,16 @@ export default function GalleryForm({ pesantren }: { pesantren: Pesantren }) {
             </div>
             <div className="px-4 py-3 text-right sm:px-6">
                 <Link
+                    disabled={processing}
                     href={route('pesantren.index')}
                     className="inline-flex items-center px-4 py-2 mr-4 text-sm font-medium text-indigo-700 bg-indigo-100 border border-transparent rounded-md hover:bg-indigo-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                 >
                     Cancel
                 </Link>
                 <button
+                    disabled={processing}
                     type="submit"
-                    className="inline-flex justify-center px-4 py-2 text-sm font-medium text-white bg-indigo-600 border border-transparent rounded-md shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                    className={`inline-flex justify-center px-4 py-2 text-sm font-medium text-white bg-indigo-600 border border-transparent rounded-md shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 ${processing ? "opacity-25 cursor-not-allowed" : ""}`}
                 >
                     Save
                 </button>

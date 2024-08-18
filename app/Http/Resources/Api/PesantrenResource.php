@@ -29,8 +29,11 @@ class PesantrenResource extends JsonResource
             'program' => $this->programs->pluck('name'),
             'tingkat' => $this->tingkats->pluck('name'),
             'contact' => $this->contact,
-            'logo' => asset("storage/pesantren/{$this->slug}/logo.png"),
+            'logo' => $this->logo ? asset("storage/pesantren/{$this->slug}/logo.png") : null,
             'video_profil' => $this->video_profil,
+            'media' => $this->when($this->media, new PesantrenMediaResource($this->media)),
+            'validasi' => PesantrenValidasiResource::collection($this->whenLoaded('validasi')),
+            'photos' => PesantrenPhotosResource::collection($this->whenLoaded('photos')),
         ];
     }
 }

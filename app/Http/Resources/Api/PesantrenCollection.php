@@ -20,8 +20,8 @@ class PesantrenCollection extends ResourceCollection
                 'slug' => $pesantren->slug,
                 'kecamatan' => $pesantren->kecamatan,
                 'gender' => $pesantren->gender,
-                'logo' => asset("storage/pesantren/{$pesantren->slug}/logo.png"),
-                'foto_sampul' => asset("storage/pesantren/{$pesantren->slug}/foto_sampul.png"),
+                'logo' => $pesantren->logo ? asset("storage/pesantren/{$pesantren->slug}/{$pesantren->logo}") : null,
+                'foto_sampul' => $pesantren->foto_sampul ? asset("storage/pesantren/{$pesantren->slug}/{$pesantren->foto_sampul}") : null,
                 'program' => $pesantren->programs->pluck('name'),
                 'tingkat' => $pesantren->tingkats->pluck('name')
             ];

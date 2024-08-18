@@ -21,7 +21,7 @@ export default function PesantrenForm({ pesantren, users, program, tingkat }: { 
         return `${year}-${month}-${day}`;
 
     }
-    const { data, setData, post, put, errors, reset } = useForm({
+    const { data, setData, post, put, errors, reset, processing } = useForm({
         user_id: pesantren?.user.id || '',
         name: pesantren?.name || '',
         slug: pesantren?.slug || '',
@@ -31,6 +31,7 @@ export default function PesantrenForm({ pesantren, users, program, tingkat }: { 
         pengasuh: pesantren?.pengasuh || '',
         tanggal_berdiri: pesantren ? extractDate(pesantren.tanggal_berdiri as Date) : '',
         deskripsi: pesantren?.deskripsi || '',
+        jumlah_santri: pesantren?.jumlah_santri || '',
         gender: pesantren?.gender || '',
         program: selectedProgram || [] as String[],
         tingkat: selectedTingkat || [] as String[],
@@ -80,12 +81,12 @@ export default function PesantrenForm({ pesantren, users, program, tingkat }: { 
                 <div className="grid grid-cols-6 gap-6">
                     <div className="col-span-6 sm:col-span-3">
                         <label
-                            htmlFor="user_id"
                             className="block text-sm font-medium text-gray-700"
                         >
                             User
                         </label>
                         <select
+                            disabled={processing}
                             id="user_id"
                             value={data.user_id}
                             onChange={(e) => setData('user_id', e.target.value)}
@@ -106,12 +107,12 @@ export default function PesantrenForm({ pesantren, users, program, tingkat }: { 
             <div className="grid grid-cols-6 gap-6">
                 <div className="col-span-6 sm:col-span-3">
                     <label
-                        htmlFor="name"
                         className="block text-sm font-medium text-gray-700"
                     >
                         Nama Pesantren
                     </label>
                     <input
+                        disabled={processing}
                         value={data.name}
                         onChange={(e) => setData('name', e.target.value)}
                         type="text"
@@ -123,12 +124,12 @@ export default function PesantrenForm({ pesantren, users, program, tingkat }: { 
                 </div>
                 <div className="col-span-6 sm:col-span-3">
                     <label
-                        htmlFor="slug"
                         className="block text-sm font-medium text-gray-700"
                     >
                         Slug <span className='text-xs text-gray-400'>(tergenerate secara otomatis)</span>
                     </label>
                     <input
+                        disabled={processing}
                         value={data.slug}
                         onChange={(e) => setData('slug', e.target.value)}
                         type="text"
@@ -142,12 +143,12 @@ export default function PesantrenForm({ pesantren, users, program, tingkat }: { 
             <div className="grid grid-cols-6 gap-6">
                 <div className="col-span-6 sm:col-span-3">
                     <label
-                        htmlFor="alamat"
                         className="block text-sm font-medium text-gray-700"
                     >
                         Alamat Lengkap
                     </label>
                     <input
+                        disabled={processing}
                         value={data.alamat}
                         onChange={(e) => setData('alamat', e.target.value)}
                         type="text"
@@ -159,12 +160,12 @@ export default function PesantrenForm({ pesantren, users, program, tingkat }: { 
                 </div>
                 <div className="col-span-6 sm:col-span-3">
                     <label
-                        htmlFor="kecamatan"
                         className="block text-sm font-medium text-gray-700"
                     >
                         Kecamatan
                     </label>
                     <select
+                        disabled={processing}
                         id="kecamatan"
                         value={data.kecamatan}
                         onChange={(e) => setData('kecamatan', e.target.value)}
@@ -186,12 +187,12 @@ export default function PesantrenForm({ pesantren, users, program, tingkat }: { 
             <div className="grid grid-cols-6 gap-6">
                 <div className="col-span-6 sm:col-span-2">
                     <label
-                        htmlFor="pendiri"
                         className="block text-sm font-medium text-gray-700"
                     >
                         Pendiri <span className='text-xs text-gray-400'>(pisahkan dengan koma jika lebih dari satu)</span>
                     </label>
                     <textarea
+                        disabled={processing}
                         value={data.pendiri}
                         onChange={(e) => setData('pendiri', e.target.value)}
                         id="pendiri"
@@ -201,12 +202,12 @@ export default function PesantrenForm({ pesantren, users, program, tingkat }: { 
                 </div>
                 <div className="col-span-6 sm:col-span-2">
                     <label
-                        htmlFor="pengasuh"
                         className="block text-sm font-medium text-gray-700"
                     >
                         Pengasuh <span className='text-xs text-gray-400'>(pisahkan dengan koma jika lebih dari satu)</span>
                     </label>
                     <textarea
+                        disabled={processing}
                         value={data.pengasuh}
                         onChange={(e) => setData('pengasuh', e.target.value)}
                         id="pengasuh"
@@ -216,12 +217,12 @@ export default function PesantrenForm({ pesantren, users, program, tingkat }: { 
                 </div>
                 <div className="col-span-6 sm:col-span-2">
                     <label
-                        htmlFor="tanggal_berdiri"
                         className="block text-sm font-medium text-gray-700"
                     >
                         Tanggal Berdiri
                     </label>
                     <input
+                        disabled={processing}
                         type="date"
                         value={data.tanggal_berdiri}
                         onChange={(e) => setData('tanggal_berdiri', e.target.value)}
@@ -236,12 +237,12 @@ export default function PesantrenForm({ pesantren, users, program, tingkat }: { 
             <div className="grid grid-cols-6 gap-6">
                 <div className="col-span-6">
                     <label
-                        htmlFor="deskripsi"
                         className="block text-sm font-medium text-gray-700"
                     >
                         Deskripsi
                     </label>
                     <textarea
+                        disabled={processing}
                         value={data.deskripsi}
                         onChange={(e) => setData('deskripsi', e.target.value)}
                         id="deskripsi"
@@ -252,14 +253,14 @@ export default function PesantrenForm({ pesantren, users, program, tingkat }: { 
             </div>
 
             <div className="grid grid-cols-6 gap-6">
-                <div className="col-span-6 sm:col-span-3">
+                <div className="col-span-6 sm:col-span-2">
                     <label
-                        htmlFor="program_unggulan"
                         className="block text-sm font-medium text-gray-700"
                     >
                         Program Unggulan
                     </label>
                     <input
+                        disabled={processing}
                         value={data.program_unggulan}
                         onChange={(e) => setData('program_unggulan', e.target.value)}
                         id="program_unggulan"
@@ -267,14 +268,30 @@ export default function PesantrenForm({ pesantren, users, program, tingkat }: { 
                     />
                     <InputError message={errors.program_unggulan} />
                 </div>
-                <div className="col-span-6 sm:col-span-3">
+                <div className="col-span-6 sm:col-span-2">
                     <label
-                        htmlFor="contact"
+                        className="block text-sm font-medium text-gray-700"
+                    >
+                        Jumlah Santri <span className='text-xs text-gray-400'>(Rata-rata dalam satu tahun)</span>
+                    </label>
+                    <input
+                        disabled={processing}
+                        value={data.jumlah_santri}
+                        type="number"
+                        onChange={(e) => setData('jumlah_santri', e.target.value)}
+                        id="jumlah_santri"
+                        className={`block w-full px-3 py-2 mt-1 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm ${errors.jumlah_santri ? "border-red-300 text-red-900 focus:ring-red-500 focus:border-red-500" : ""}`}
+                    />
+                    <InputError message={errors.jumlah_santri} />
+                </div>
+                <div className="col-span-6 sm:col-span-2">
+                    <label
                         className="block text-sm font-medium text-gray-700"
                     >
                         Kontak yang dapat dihubungi
                     </label>
                     <input
+                        disabled={processing}
                         type="number"
                         value={data.contact}
                         onChange={handleContactChange}
@@ -289,12 +306,12 @@ export default function PesantrenForm({ pesantren, users, program, tingkat }: { 
             <div className="grid grid-cols-6 gap-6">
                 <div className="col-span-2">
                     <label
-                        htmlFor="gemder"
                         className="block text-sm font-medium text-gray-700"
                     >
                         Gender
                     </label>
                     <select
+                        disabled={processing}
                         id="gender"
                         value={data.gender}
                         onChange={(e) => setData('gender', e.target.value)}
@@ -310,12 +327,12 @@ export default function PesantrenForm({ pesantren, users, program, tingkat }: { 
 
                 <div className="col-span-2">
                     <label
-                        htmlFor="program"
                         className="block text-sm font-medium text-gray-700"
                     >
                         Program <span className='text-xs text-gray-400'>(Tahan tombol ctrl/cmd utnuk memilih lebih dari 1)</span>
                     </label>
                     <select
+                        disabled={processing}
                         id="program"
                         defaultValue={selectedProgram?.map((program) => program.toString())}
                         multiple
@@ -334,12 +351,12 @@ export default function PesantrenForm({ pesantren, users, program, tingkat }: { 
 
                 <div className="col-span-2">
                     <label
-                        htmlFor="tingkat"
                         className="block text-sm font-medium text-gray-700"
                     >
                         Tingkat <span className='text-xs text-gray-400'>(Tahan tombol ctrl/cmd utnuk memilih lebih dari 1)</span>
                     </label>
                     <select
+                        disabled={processing}
                         id="tingkat"
                         multiple
                         defaultValue={selectedTingkat?.map((tingkat) => tingkat.toString())}
@@ -360,16 +377,15 @@ export default function PesantrenForm({ pesantren, users, program, tingkat }: { 
             <div className="grid grid-cols-6 gap-6">
                 <div className="col-span-3">
                     <label
-                        htmlFor="logo"
                         className="block text-sm font-medium text-gray-700"
                     >
                         Logo <span className='text-xs text-gray-400'>(berlatar belakang transparan dan berformat .png)</span>
                     </label>
                     <input
+                        disabled={processing}
                         type="file"
                         id="logo"
                         accept=".png"
-                        // value={data.logo}
                         onChange={(e) => setData('logo', e.target.files ? e.target.files[0] : null)}
                         className={`block w-full px-3 py-2 mt-1 text-sm text-gray-900 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 ${errors.logo ? "border-red-300 text-red-900 focus:ring-red-500 focus:border-red-500" : ""}`}
                     />
@@ -378,12 +394,12 @@ export default function PesantrenForm({ pesantren, users, program, tingkat }: { 
                 </div>
                 <div className="col-span-3">
                     <label
-                        htmlFor="foto_sampul"
                         className="block text-sm font-medium text-gray-700"
                     >
-                        Foto Sampul <span className='text-xs text-gray-400'>(Usahakan dalam orientasi protrait / vertical)</span>
+                        Foto Sampul <span className='text-xs text-gray-400'>(Disarankan foto bangunan atau kegiatan terbaik)</span>
                     </label>
                     <input
+                        disabled={processing}
                         type="file"
                         id="foto_sampul"
                         accept="image/*"
@@ -396,12 +412,14 @@ export default function PesantrenForm({ pesantren, users, program, tingkat }: { 
 
             <div className="px-4 py-3 text-right sm:px-6">
                 <Link
+                    disabled={processing}
                     href={route('pesantren.index')}
                     className="inline-flex items-center px-4 py-2 mr-4 text-sm font-medium text-indigo-700 bg-indigo-100 border border-transparent rounded-md hover:bg-indigo-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                 >
                     Cancel
                 </Link>
                 <button
+                    disabled={processing}
                     type="submit"
                     className="inline-flex justify-center px-4 py-2 text-sm font-medium text-white bg-indigo-600 border border-transparent rounded-md shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                 >

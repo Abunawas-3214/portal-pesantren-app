@@ -4,7 +4,7 @@ import React from 'react'
 import InputError from '../InputError'
 
 export default function MediaForm({ pesantren }: { pesantren: Pesantren }) {
-    const { data, setData, put, errors, reset } = useForm({
+    const { data, setData, put, errors, reset, processing } = useForm({
         pesantren_id: pesantren.id,
         facebook: pesantren.media?.facebook || '',
         instagram: pesantren.media?.instaram || '',
@@ -24,12 +24,12 @@ export default function MediaForm({ pesantren }: { pesantren: Pesantren }) {
             <div className="grid grid-cols-6 gap-6">
                 <div className="col-span-6 sm:col-span-3">
                     <label
-                        htmlFor="facebook"
                         className="block text-sm font-medium text-gray-700"
                     >
                         Facebook
                     </label>
                     <input
+                        disabled={processing}
                         value={data.facebook}
                         onChange={(e) => setData('facebook', e.target.value)}
                         type="text"
@@ -41,12 +41,12 @@ export default function MediaForm({ pesantren }: { pesantren: Pesantren }) {
                 </div>
                 <div className="col-span-6 sm:col-span-3">
                     <label
-                        htmlFor="instagram"
                         className="block text-sm font-medium text-gray-700"
                     >
                         Instagram
                     </label>
                     <input
+                        disabled={processing}
                         value={data.instagram}
                         onChange={(e) => setData('instagram', e.target.value)}
                         type="text"
@@ -60,12 +60,12 @@ export default function MediaForm({ pesantren }: { pesantren: Pesantren }) {
             <div className="grid grid-cols-6 gap-6">
                 <div className="col-span-6 sm:col-span-3">
                     <label
-                        htmlFor="youtube"
                         className="block text-sm font-medium text-gray-700"
                     >
                         Youtube
                     </label>
                     <input
+                        disabled={processing}
                         value={data.youtube}
                         onChange={(e) => setData('youtube', e.target.value)}
                         type="text"
@@ -77,12 +77,12 @@ export default function MediaForm({ pesantren }: { pesantren: Pesantren }) {
                 </div>
                 <div className="col-span-6 sm:col-span-3">
                     <label
-                        htmlFor="tiktok"
                         className="block text-sm font-medium text-gray-700"
                     >
                         Tiktok
                     </label>
                     <input
+                        disabled={processing}
                         value={data.tiktok}
                         onChange={(e) => setData('tiktok', e.target.value)}
                         type="text"
@@ -96,12 +96,12 @@ export default function MediaForm({ pesantren }: { pesantren: Pesantren }) {
             <div className="grid grid-cols-6 gap-6">
                 <div className="col-span-6 sm:col-span-3">
                     <label
-                        htmlFor="twitter"
                         className="block text-sm font-medium text-gray-700"
                     >
                         Twitter
                     </label>
                     <input
+                        disabled={processing}
                         value={data.twitter}
                         onChange={(e) => setData('twitter', e.target.value)}
                         type="text"
@@ -113,12 +113,12 @@ export default function MediaForm({ pesantren }: { pesantren: Pesantren }) {
                 </div>
                 <div className="col-span-6 sm:col-span-3">
                     <label
-                        htmlFor="website"
                         className="block text-sm font-medium text-gray-700"
                     >
                         Website
                     </label>
                     <input
+                        disabled={processing}
                         value={data.website}
                         onChange={(e) => setData('website', e.target.value)}
                         type="text"
@@ -131,12 +131,14 @@ export default function MediaForm({ pesantren }: { pesantren: Pesantren }) {
             </div>
             <div className="px-4 py-3 text-right sm:px-6">
                 <Link
+                    disabled={processing}
                     href={route('pesantren.index')}
                     className="inline-flex items-center px-4 py-2 mr-4 text-sm font-medium text-indigo-700 bg-indigo-100 border border-transparent rounded-md hover:bg-indigo-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                 >
                     Cancel
                 </Link>
                 <button
+                    disabled={processing}
                     type="submit"
                     className="inline-flex justify-center px-4 py-2 text-sm font-medium text-white bg-indigo-600 border border-transparent rounded-md shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                 >

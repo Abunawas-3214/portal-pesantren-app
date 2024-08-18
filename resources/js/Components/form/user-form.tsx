@@ -36,7 +36,6 @@ export default function UserForm({ dataRole, user }: { dataRole: Role[], user?: 
             <div className="grid grid-cols-6 gap-6">
                 <div className="col-span-6 sm:col-span-3">
                     <label
-                        htmlFor="name"
                         className="block text-sm font-medium text-gray-700"
                     >
                         Name
@@ -53,7 +52,6 @@ export default function UserForm({ dataRole, user }: { dataRole: Role[], user?: 
 
                 <div className="col-span-6 sm:col-span-3">
                     <label
-                        htmlFor="email"
                         className="block text-sm font-medium text-gray-700"
                     >
                         E-mail
@@ -72,7 +70,6 @@ export default function UserForm({ dataRole, user }: { dataRole: Role[], user?: 
             <div className="grid grid-cols-6 gap-6">
                 <div className="col-span-6 sm:col-span-3">
                     <label
-                        htmlFor="password"
                         className="block text-sm font-medium text-gray-700"
                     >
                         Password
@@ -89,7 +86,6 @@ export default function UserForm({ dataRole, user }: { dataRole: Role[], user?: 
 
                 <div className="col-span-6 sm:col-span-3">
                     <label
-                        htmlFor="password_confirmation"
                         className="block text-sm font-medium text-gray-700"
                     >
                         Confirm Password
@@ -108,7 +104,6 @@ export default function UserForm({ dataRole, user }: { dataRole: Role[], user?: 
             <div className="grid grid-cols-6 gap-6">
                 <div className="col-span-6 sm:col-span-3">
                     <label
-                        htmlFor="status"
                         className="block text-sm font-medium text-gray-700"
                     >
                         Status
@@ -129,7 +124,6 @@ export default function UserForm({ dataRole, user }: { dataRole: Role[], user?: 
 
                 <div className="col-span-6 sm:col-span-3">
                     <label
-                        htmlFor="roles"
                         className="block text-sm font-medium text-gray-700"
                     >
                         Role

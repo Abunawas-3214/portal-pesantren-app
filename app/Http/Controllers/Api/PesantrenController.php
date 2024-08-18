@@ -16,7 +16,7 @@ class PesantrenController extends Controller
 
     public function show(string $slug)
     {
-        $pesantren = Pesantren::with('programs', 'tingkats')->where('slug', $slug)->firstOrFail();
+        $pesantren = Pesantren::with('programs', 'tingkats', 'media', 'photos', 'validasi')->where('slug', $slug)->firstOrFail();
         return new PesantrenResource($pesantren);
     }
 }
