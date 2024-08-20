@@ -184,7 +184,7 @@ class PesantrenController extends Controller
         $pesantren->programs()->sync($request->program);
         $pesantren->tingkats()->sync($request->tingkat);
 
-        return redirect()->route('pesantren.media.edit', $pesantren->id);
+        return redirect()->route('pesantren.deskripsi.edit', $pesantren->id);
     }
 
     /**

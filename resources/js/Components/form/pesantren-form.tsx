@@ -5,6 +5,7 @@ import slugify from "slugify";
 import { User } from "@/types/user";
 import { Kecamatan } from "@/Helper/kecamtan";
 import { PermissionsHandler, Pesantren, Program, Tingkat } from '@/types';
+import { Loader } from "lucide-react";
 
 export default function PesantrenForm({ pesantren, users, program, tingkat }: { pesantren?: Pesantren, users: User[], program: Program[], tingkat: Tingkat[] }) {
     const page: { props: { can: PermissionsHandler } } = usePage();
@@ -30,7 +31,6 @@ export default function PesantrenForm({ pesantren, users, program, tingkat }: { 
         pendiri: pesantren?.pendiri || '',
         pengasuh: pesantren?.pengasuh || '',
         tanggal_berdiri: pesantren ? extractDate(pesantren.tanggal_berdiri as Date) : '',
-        deskripsi: pesantren?.deskripsi || '',
         jumlah_santri: pesantren?.jumlah_santri || '',
         gender: pesantren?.gender || '',
         program: selectedProgram || [] as String[],
@@ -235,24 +235,6 @@ export default function PesantrenForm({ pesantren, users, program, tingkat }: { 
             </div>
 
             <div className="grid grid-cols-6 gap-6">
-                <div className="col-span-6">
-                    <label
-                        className="block text-sm font-medium text-gray-700"
-                    >
-                        Deskripsi
-                    </label>
-                    <textarea
-                        disabled={processing}
-                        value={data.deskripsi}
-                        onChange={(e) => setData('deskripsi', e.target.value)}
-                        id="deskripsi"
-                        className={`block w-full h-48 px-3 py-2 mt-1 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm ${errors.deskripsi ? "border-red-300 text-red-900 focus:ring-red-500 focus:border-red-500" : ""}`}
-                    />
-                    <InputError message={errors.pengasuh} />
-                </div>
-            </div>
-
-            <div className="grid grid-cols-6 gap-6">
                 <div className="col-span-6 sm:col-span-2">
                     <label
                         className="block text-sm font-medium text-gray-700"
@@ -411,19 +393,25 @@ export default function PesantrenForm({ pesantren, users, program, tingkat }: { 
             </div>
 
             <div className="px-4 py-3 text-right sm:px-6">
-                <Link
-                    disabled={processing}
-                    href={route('pesantren.index')}
-                    className="inline-flex items-center px-4 py-2 mr-4 text-sm font-medium text-indigo-700 bg-indigo-100 border border-transparent rounded-md hover:bg-indigo-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                >
-                    Cancel
-                </Link>
+                <button>
+                    <Link
+                        disabled={processing}
+                        href={route('pesantren.index')}
+                        className={`inline-flex items-center px-4 py-2 mr-4 text-sm font-medium text-indigo-700 bg-indigo-100 border border-transparent rounded-md hover:bg-indigo-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 ${processing ? "opacity-25 cursor-not-allowed" : ""}`}
+                    >
+                        Cancel
+                    </Link>
+                </button>
                 <button
                     disabled={processing}
                     type="submit"
-                    className="inline-flex justify-center px-4 py-2 text-sm font-medium text-white bg-indigo-600 border border-transparent rounded-md shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                    className={`inline-flex justify-center px-4 py-2 text-sm font-medium text-white bg-indigo-600 border border-transparent rounded-md shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 items-center ${processing ? "opacity-25 cursor-not-allowed" : ""}`}
                 >
-                    {pesantren ? 'Next' : 'Create'}
+                    {processing
+                        ? <>
+                            <Loader className='w-3 h-3 mr-2 animate-spin' /> Loading...
+                        </>
+                        : pesantren ? 'Next' : 'Create'}
                 </button>
             </div>
         </form>

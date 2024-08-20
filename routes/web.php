@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\MediaController;
 use App\Http\Controllers\PesantrenController;
+use App\Http\Controllers\PesantrenDeskripsiController;
 use App\Http\Controllers\PesantrenPhotoController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
@@ -15,12 +16,13 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 Route::get('/', function () {
-    return Inertia::render('Welcome', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
-    ]);
+    // return Inertia::render('Welcome', [
+    //     'canLogin' => Route::has('login'),
+    //     'canRegister' => Route::has('register'),
+    //     'laravelVersion' => Application::VERSION,
+    //     'phpVersion' => PHP_VERSION,
+    // ]);
+    return redirect('/dashboard');
 });
 
 Route::get('/dashboard', function () {
@@ -36,6 +38,8 @@ Route::middleware('auth')->group(function () {
 
     Route::resource('/pesantren', PesantrenController::class);
     Route::get('/pesantren/{pesantren}/edit/media', [MediaController::class, 'edit'])->name('pesantren.media.edit');
+    Route::get('/pesantren/{pesantren}/edit/deskripsi', [PesantrenDeskripsiController::class, 'edit'])->name('pesantren.deskripsi.edit');
+    Route::put('/pesantren/{pesantren}/update/deskripsi', [PesantrenDeskripsiController::class, 'update'])->name('pesantren.deskripsi.update');
     Route::put('/pesantren/{pesantren}/update/media', [MediaController::class, 'update'])->name('pesantren.media.update');
     Route::get('/pesantren/{pesantren}/edit/validasi', [ValidasiController::class, 'edit'])->name('pesantren.validasi.edit');
     Route::put('/pesantren/{pesantren}/update/validasi', [ValidasiController::class, 'update'])->name('pesantren.validasi.update');

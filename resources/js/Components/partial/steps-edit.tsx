@@ -13,6 +13,12 @@ export default function StepsEdit({ pesantren }: { pesantren: Pesantren }) {
                 Informasi Umum
             </ButtonStepsLink>
             <ButtonStepsLink
+                href={route('pesantren.deskripsi.edit', pesantren.id)}
+                active={route().current('pesantren.deskripsi.edit')}
+            >
+                Deskripsi
+            </ButtonStepsLink>
+            <ButtonStepsLink
                 href={route('pesantren.media.edit', pesantren.id)}
                 active={route().current('pesantren.media.edit')}
             >

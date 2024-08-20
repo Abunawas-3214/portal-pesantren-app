@@ -9,6 +9,7 @@
         "@headlessui/react": "^2.0.0",
         "@inertiajs/react": "^1.0.0",
         "@tailwindcss/forms": "^0.5.3",
+        "@tailwindcss/typography": "^0.5.14",
         "@types/node": "^18.13.0",
         "@types/react": "^18.0.28",
         "@types/react-dom": "^18.0.10",
@@ -34,9 +35,11 @@
     "license": "ISC",
     "dependencies": {
         "@tanstack/react-table": "^8.20.1",
+        "@tiptap/pm": "^2.6.4",
+        "@tiptap/react": "^2.6.4",
+        "@tiptap/starter-kit": "^2.6.4",
         "lucide-react": "^0.424.0",
         "react-hook-form": "^7.52.2",
-        "react-quill": "^2.0.0",
         "slugify": "^1.6.6"
     }
 }

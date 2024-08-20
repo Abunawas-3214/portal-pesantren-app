@@ -1,13 +1,13 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import { Head, Link, usePage } from '@inertiajs/react';
+import { Head, Link } from '@inertiajs/react';
 import { PageProps, Pesantren } from '@/types';
-import PesantrenForm from '@/Components/form/pesantren-form';
 import { User } from '@/types/user';
 import { Program, Tingkat } from '@/types';
+import MediaForm from '@/Components/form/media-form';
 import StepsEdit from '@/Components/partial/steps-edit';
-import PesantrenDeskripsiEditor from '@/Components/editor/pesantren-deskripsi-editor';
+import PesantrenDeskripsiForm from '@/Components/form/deskripsi-form';
 
-export default function Edit({ auth, users, program, tingkat, pesantren }: PageProps & { users: User[], program: Program[], tingkat: Tingkat[], pesantren: Pesantren }) {
+export default function EditDeskripsi({ auth, users, program, tingkat, pesantren }: PageProps & { users: User[], program: Program[], tingkat: Tingkat[], pesantren: Pesantren }) {
     return (
         <AuthenticatedLayout
             user={auth.user}
@@ -28,7 +28,7 @@ export default function Edit({ auth, users, program, tingkat, pesantren }: PageP
 
             <StepsEdit pesantren={pesantren} />
 
-            <PesantrenForm users={users} program={program} tingkat={tingkat} pesantren={pesantren} />
+            <PesantrenDeskripsiForm pesantren={pesantren} />
 
         </AuthenticatedLayout>
     );

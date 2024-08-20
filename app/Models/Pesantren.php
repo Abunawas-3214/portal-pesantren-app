@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Http\Request;
 
 class Pesantren extends Model
 {
@@ -48,5 +49,16 @@ class Pesantren extends Model
     public function usaha()
     {
         return $this->hasMany(UsahaPesantren::class);
+    }
+
+    public function scopeSearch(Builder $query, Request $request)
+    {
+        return $query
+            ->where(function ($query) use ($request) {
+                return $query
+                    ->when($request->search, function ($query) use ($request) {
+                        $query->where('name', 'LIKE', "%{$request->search}%");
+                    });
+            });
     }
 }

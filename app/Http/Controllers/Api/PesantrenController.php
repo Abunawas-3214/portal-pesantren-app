@@ -5,13 +5,28 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\Api\PesantrenCollection;
 use App\Http\Resources\Api\PesantrenResource;
 use App\Models\Pesantren;
-use Request;
+use Illuminate\Http\Request;
 
 class PesantrenController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        return new PesantrenCollection(Pesantren::with('programs', 'tingkats')->get());
+        $query = Pesantren::with('programs', 'tingkats');
+
+        if ($request->has('search')) {
+            $searchTerm = $request->input('search');
+            $query->where('name', 'like', "%{$searchTerm}%");
+        }
+
+        if($request->has('gender')){
+            
+        }
+
+        $pesantrens = $query->get();
+
+        return new PesantrenCollection($pesantrens);
+
+        // return new PesantrenCollection(Pesantren::with('programs', 'tingkats')->get());
     }
 
     public function show(string $slug)
