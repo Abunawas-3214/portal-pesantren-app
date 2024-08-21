@@ -51,14 +51,43 @@ class Pesantren extends Model
         return $this->hasMany(UsahaPesantren::class);
     }
 
-    public function scopeSearch(Builder $query, Request $request)
+    // Pesantren Search
+    public function scopeSearch($query, $search)
     {
-        return $query
-            ->where(function ($query) use ($request) {
-                return $query
-                    ->when($request->search, function ($query) use ($request) {
-                        $query->where('name', 'LIKE', "%{$request->search}%");
-                    });
+        return $query->when($search, function ($query) use ($search) {
+            return $query->where('name', 'like', "%{$search}%");
+        });
+    }
+
+    public function scopeGender($query, $gender)
+    {
+        return $query->when($gender, function ($query) use ($gender) {
+            return $query->where('gender', in_array($gender, ['putra,putri', 'putri,putra']) ? 'putra_putri' : $gender);
+        });
+    }
+
+    public function scopePrograms($query, $programs)
+    {
+        return $query->when($programs, function ($query) use ($programs) {
+            return $query->whereHas('programs', function ($q) use ($programs) {
+                $q->whereIn('name', explode(',', $programs));
             });
+        });
+    }
+
+    public function scopeTingkats($query, $tingkats)
+    {
+        return $query->when($tingkats, function ($query) use ($tingkats) {
+            return $query->whereHas('tingkats', function ($q) use ($tingkats) {
+                $q->whereIn('name', explode(',', $tingkats));
+            });
+        });
+    }
+
+    public function scopeKecamatan($query, $kecamatans)
+    {
+        return $query->when($kecamatans, function ($query) use ($kecamatans) {
+            return $query->whereIn('kecamatan', explode(',', $kecamatans));
+        });
     }
 }

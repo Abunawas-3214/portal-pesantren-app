@@ -1,7 +1,6 @@
 import { PermissionsHandler, Pesantren } from '@/types'
 import { Link, useForm, usePage } from '@inertiajs/react';
 import React from 'react'
-import PesantrenDeskripsiEditor from '../editor/pesantren-deskripsi-editor';
 import Tiptap from '../editor/Tiptap';
 import { Loader, LoaderCircle } from 'lucide-react';
 

@@ -13,20 +13,15 @@ class PesantrenController extends Controller
     {
         $query = Pesantren::with('programs', 'tingkats');
 
-        if ($request->has('search')) {
-            $searchTerm = $request->input('search');
-            $query->where('name', 'like', "%{$searchTerm}%");
-        }
-
-        if($request->has('gender')){
-            
-        }
+        $query->search($request->input('search'))
+            ->gender($request->input('gender'))
+            ->programs($request->input('program'))
+            ->tingkats($request->input('tingkat'))
+            ->kecamatan($request->input('kecamatan'));
 
         $pesantrens = $query->get();
 
         return new PesantrenCollection($pesantrens);
-
-        // return new PesantrenCollection(Pesantren::with('programs', 'tingkats')->get());
     }
 
     public function show(string $slug)
