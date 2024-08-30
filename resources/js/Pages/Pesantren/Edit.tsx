@@ -5,7 +5,6 @@ import PesantrenForm from '@/Components/form/pesantren-form';
 import { User } from '@/types/user';
 import { Program, Tingkat } from '@/types';
 import StepsEdit from '@/Components/partial/steps-edit';
-import PesantrenDeskripsiEditor from '@/Components/editor/pesantren-deskripsi-editor';
 
 export default function Edit({ auth, users, program, tingkat, pesantren }: PageProps & { users: User[], program: Program[], tingkat: Tingkat[], pesantren: Pesantren }) {
     return (
