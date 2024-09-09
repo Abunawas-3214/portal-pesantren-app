@@ -8,7 +8,7 @@ export default function MediaForm({ pesantren }: { pesantren: Pesantren }) {
     const { data, setData, put, errors, reset, processing } = useForm({
         pesantren_id: pesantren.id,
         facebook: pesantren.media?.facebook || '',
-        instagram: pesantren.media?.instaram || '',
+        instagram: pesantren.media?.instagram || '',
         youtube: pesantren.media?.youtube || '',
         tiktok: pesantren.media?.tiktok || '',
         twitter: pesantren.media?.twitter || '',

@@ -1,5 +1,5 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import { Head, Link, usePage } from '@inertiajs/react';
+import { Head } from '@inertiajs/react';
 import { PageProps, Pesantren } from '@/types';
 import PesantrenForm from '@/Components/form/pesantren-form';
 import { User } from '@/types/user';

@@ -1,4 +1,3 @@
-import React from "react";
 import { type Editor } from "@tiptap/react";
 import {
     Bold,
@@ -6,29 +5,52 @@ import {
     Italic,
     List,
     ListOrdered,
-    Heading2,
-    Underline,
-    Quote,
     Undo,
     Redo,
     Code,
     Heading3,
+    Link2Icon,
+    Link2OffIcon,
 } from "lucide-react";
+import { useCallback } from "react";
 
 type Props = {
     editor: Editor | null;
     content: string;
 };
 
+
 const Toolbar = ({ editor, content }: Props) => {
     if (!editor) {
         return null;
     }
+
+    const setLink = useCallback(() => {
+        const previousUrl = editor.getAttributes('link').href
+        const url = window.prompt('URL', previousUrl)
+
+        // cancelled
+        if (url === null) {
+            return
+        }
+
+        // empty
+        if (url === '') {
+            editor.chain().focus().extendMarkRange('link').unsetLink()
+                .run()
+
+            return
+        }
+
+        // update link
+        editor.chain().focus().extendMarkRange('link').setLink({ href: url })
+            .run()
+    }, [editor])
     return (
         <div
-            className="px-4 py-3 rounded-tl-md rounded-tr-md flex justify-between items-start gap-5 w-full flex-wrap border border-gray-400"
+            className="flex flex-wrap items-start justify-between w-full gap-5 px-4 py-3 border border-gray-400 rounded-tl-md rounded-tr-md"
         >
-            <div className="flex justify-start items-center gap-2 w-full lg:w-10/12 flex-wrap ">
+            <div className="flex flex-wrap items-center justify-start w-full gap-2 lg:w-10/12 ">
                 <button
                     onClick={(e) => {
                         e.preventDefault();
@@ -81,7 +103,36 @@ const Toolbar = ({ editor, content }: Props) => {
                 >
                     <Heading3 className="w-4 h-4" />
                 </button>
+                <button
+                    onClick={(e) => {
+                        e.preventDefault()
+                        const previousUrl = editor.getAttributes('link').href
+                        const url = window.prompt('Enter the URL:', previousUrl);
 
+                        if (url) {
+                            editor.chain().focus().setLink({ href: url }).run();
+                        }
+                    }}
+                    className={
+                        editor.isActive("link")
+                            ? "bg-black text-white p-2 rounded-lg"
+                            : "bg-white text-black p-2 rounded-lg"
+                    }
+                >
+                    <Link2Icon className="w-4 h-4" />
+                </button>
+
+                {editor.isActive("link") &&
+                    <button
+                        onClick={(e) => {
+                            e.preventDefault()
+                            editor.chain().focus().unsetLink().run()
+                        }}
+                        className="p-2 text-black bg-white rounded-lg"
+                    >
+                        <Link2OffIcon className="w-4 h-4" />
+                    </button>
+                }
                 <button
                     onClick={(e) => {
                         e.preventDefault();
@@ -151,7 +202,7 @@ const Toolbar = ({ editor, content }: Props) => {
             {/* {content && (
                 <button
                     type="submit"
-                    className="px-4 bg-sky-700 text-white py-2 rounded-md"
+                    className="px-4 py-2 text-white rounded-md bg-sky-700"
                 >
                     Add
                 </button>

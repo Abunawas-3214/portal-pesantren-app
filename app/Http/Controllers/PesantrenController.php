@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StorePesantrenRequest;
 use App\Http\Requests\UpdatePesantrenRequest;
+use App\Http\Resources\Api\PesantrenResource;
 use App\Models\Media;
 use App\Models\Pesantren;
 use App\Models\Program;
@@ -108,7 +109,16 @@ class PesantrenController extends Controller
      */
     public function show(Pesantren $pesantren)
     {
-        //
+        Gate::authorize('pesantren_show');
+
+        $pesantren = Pesantren::with('user', 'programs', 'tingkats', 'media', 'validasi', 'photos')->find($pesantren->id);
+        // return inertia('Pesantren/View', [
+        //     'pesantren' => $pesantren
+        // ]);
+        $pesantrenData = new PesantrenResource($pesantren);
+        return inertia('Pesantren/View', [
+            'pesantrenData' => $pesantrenData
+        ]);
     }
 
     /**
