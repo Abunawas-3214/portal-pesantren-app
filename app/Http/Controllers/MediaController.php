@@ -63,7 +63,7 @@ class MediaController extends Controller
     {
         Gate::authorize('pesantren_edit');
         $pesantren->media()->update($request->validated());
-        return redirect()->route('pesantren.validasi.edit', $pesantren->id);
+        return redirect()->route('pesantren.validasi.edit', $pesantren->id)->with('success', 'Sosial Media Pesantren Berhasil Disimpan.');
     }
 
     /**

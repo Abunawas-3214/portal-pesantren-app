@@ -75,7 +75,7 @@ export default function View({ auth, users, pesantrenData }: PageProps & { users
                                 </tr>
                                 <tr>
                                     <td className="w-1/4 p-2 font-semibold border">Gender</td>
-                                    <td className="w-3/4 p-2 capitalize border">{pesantren.gender}</td>
+                                    <td className="w-3/4 p-2 capitalize border">{pesantren.gender === 'putra_putri' ? 'Putra & Putri' : pesantren.gender}</td>
                                 </tr>
                                 <tr>
                                     <td className="w-1/4 p-2 font-semibold border">Program</td>
@@ -109,29 +109,28 @@ export default function View({ auth, users, pesantrenData }: PageProps & { users
                             <tbody>
                                 <tr>
                                     <td className="w-1/4 p-2 font-semibold border">Facebook</td>
-                                    <td className="w-3/4 p-2 capitalize border">{pesantren.media.facebook}</td>
+                                    <td className="w-3/4 p-2 border"><a href={pesantren.media.facebook} target="_blank" rel="noopener noreferrer" className="text-blue-600 underline">{pesantren.media.facebook}</a></td>
                                 </tr>
                                 <tr>
                                     <td className="w-1/4 p-2 font-semibold border">Instagram</td>
-                                    <td className="w-3/4 p-2 capitalize border">{pesantren.media.instagram}</td>
+                                    <td className="w-3/4 p-2 border"><a href={pesantren.media.instagram} target="_blank" rel="noopener noreferrer" className="text-blue-600 underline">{pesantren.media.instagram}</a></td>
                                 </tr>
                                 <tr>
                                     <td className="w-1/4 p-2 font-semibold border">Youtube</td>
-                                    <td className="w-3/4 p-2 capitalize border">{pesantren.media.youtube}</td>
+                                    <td className="w-3/4 p-2 border"><a href={pesantren.media.youtube} target="_blank" rel="noopener noreferrer" className="text-blue-600 underline">{pesantren.media.youtube}</a></td>
                                 </tr>
                                 <tr>
                                     <td className="w-1/4 p-2 font-semibold border">Tiktok</td>
-                                    <td className="w-3/4 p-2 capitalize border">{pesantren.media.tiktok}</td>
+                                    <td className="w-3/4 p-2 border"><a href={pesantren.media.tiktok} target="_blank" rel="noopener noreferrer" className="text-blue-600 underline">{pesantren.media.tiktok}</a></td>
                                 </tr>
                                 <tr>
                                     <td className="w-1/4 p-2 font-semibold border">Twitter</td>
-                                    <td className="w-3/4 p-2 capitalize border">{pesantren.media.twitter}</td>
+                                    <td className="w-3/4 p-2 border"><a href={pesantren.media.twitter} target="_blank" rel="noopener noreferrer" className="text-blue-600 underline">{pesantren.media.twitter}</a></td>
                                 </tr>
                                 <tr>
                                     <td className="w-1/4 p-2 font-semibold border">Website</td>
-                                    <td className="w-3/4 p-2 capitalize border">{pesantren.media.website}</td>
-                                </tr>
-                            </tbody>
+                                    <td className="w-3/4 p-2 border"><a href={pesantren.media.website} target="_blank" rel="noopener noreferrer" className="text-blue-600 underline">{pesantren.media.website}</a></td>
+                                </tr>                                  </tbody>
                         </table>
                     </div>
 

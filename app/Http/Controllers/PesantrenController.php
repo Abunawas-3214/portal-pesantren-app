@@ -101,7 +101,7 @@ class PesantrenController extends Controller
         $pesantren->programs()->attach($request->program);
         $pesantren->tingkats()->attach($request->tingkat);
 
-        return redirect()->route('pesantren.index');
+        return redirect()->route('pesantren.index')->with('success', 'Data Pesantren berhasil ditambahkan.');
     }
 
     /**
@@ -194,7 +194,7 @@ class PesantrenController extends Controller
         $pesantren->programs()->sync($request->program);
         $pesantren->tingkats()->sync($request->tingkat);
 
-        return redirect()->route('pesantren.deskripsi.edit', $pesantren->id);
+        return redirect()->route('pesantren.deskripsi.edit', $pesantren->id)->with('success', 'Informasi Umum Pesantren Berhasil Disimpan.');
     }
 
     /**
@@ -206,6 +206,6 @@ class PesantrenController extends Controller
 
         Storage::deleteDirectory("public/pesantren/{$pesantren->slug}");
         $pesantren->delete();
-        return redirect()->route('pesantren.index');
+        return redirect()->route('pesantren.index')->with('success', 'Data Pesantren berhasil dihapus.');
     }
 }

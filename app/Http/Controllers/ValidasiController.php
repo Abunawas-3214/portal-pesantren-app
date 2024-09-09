@@ -93,7 +93,7 @@ class ValidasiController extends Controller
             ]);
         }
 
-        return redirect()->route('pesantren.photo.edit', $pesantren->id);
+        return redirect()->route('pesantren.photo.edit', $pesantren->id)->with('success', 'Data Validitas Pesantren Berhasil Disimpan.');
     }
 
     /**

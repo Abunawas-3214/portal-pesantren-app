@@ -9,6 +9,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProgramController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\TingkatController;
+use App\Http\Controllers\UsahaPesantrenController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ValidasiController;
 use Illuminate\Foundation\Application;
@@ -45,6 +46,10 @@ Route::middleware('auth')->group(function () {
     Route::put('/pesantren/{pesantren}/update/validasi', [ValidasiController::class, 'update'])->name('pesantren.validasi.update');
     Route::get('/pesantren/{pesantren}/edit/photo', [PesantrenPhotoController::class, 'edit'])->name('pesantren.photo.edit');
     Route::put('/pesantren/{pesantren}/update/photo', [PesantrenPhotoController::class, 'update'])->name('pesantren.photo.update');
+
+    Route::resource('/post', PostController::class);
+
+    Route::resource('/usaha', UsahaPesantrenController::class);
 
     Route::resource('/user', UserController::class);
     Route::resource('/role', RoleController::class);

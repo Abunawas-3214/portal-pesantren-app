@@ -59,7 +59,7 @@ class PesantrenDeskripsiController extends Controller
     public function update(UpdatePesantrenDeskripsiRequest $request, Pesantren $pesantren)
     {
         $pesantren->update($request->validated());
-        return redirect()->route('pesantren.media.edit', $pesantren->id);
+        return redirect()->route('pesantren.media.edit', $pesantren->id)->with('success', 'Deskripsi Pesantren Berhasil Disimpan.');
     }
 
     /**

@@ -13,7 +13,7 @@ class UsahaPesantrenController extends Controller
      */
     public function index()
     {
-        //
+        return inertia('Usaha/Index');
     }
 
     /**

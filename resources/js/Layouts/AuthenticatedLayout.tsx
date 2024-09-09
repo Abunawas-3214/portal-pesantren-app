@@ -6,6 +6,7 @@ import ResponsiveNavLink from '@/Components/ResponsiveNavLink';
 import { Link, usePage } from '@inertiajs/react';
 import { PermissionsHandler, User } from '@/types';
 import rmiLogo from "@/assets/svg/logos/logo_rmi.svg";
+import Toastify from '@/Components/Toastify';
 
 export default function Authenticated({ user, header, children }: PropsWithChildren<{ user: User, header?: ReactNode }>) {
     const page: { props: { can: PermissionsHandler } } = usePage();
@@ -33,9 +34,17 @@ export default function Authenticated({ user, header, children }: PropsWithChild
                                         Pesantren
                                     </NavLink>
                                 }
-                                {/* <NavLink href={route('dashboard')} active={route().current('dashboard')}>
-                                    Post
-                                </NavLink> */}
+                                {(page.props.can.post_access_all || page.props.can.post_access_self) &&
+                                    <NavLink href={route('post.index')} active={route().current('post.index')}>
+                                        Post
+                                    </NavLink>
+                                }
+                                {(page.props.can.pesantren_access_all || page.props.can.pesantren_access_self) &&
+                                    <NavLink href={route('usaha.index')} active={route().current('usaha.index')}>
+                                        Usaha
+                                    </NavLink>
+                                }
+
                                 {/* <NavLink href={route('dashboard')} active={route().current('dashboard')}>
                                     Program
                                 </NavLink> */}
@@ -160,6 +169,7 @@ export default function Authenticated({ user, header, children }: PropsWithChild
                     </div>
                 </div>
             </main>
+            <Toastify />
         </div>
     );
 }

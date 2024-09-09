@@ -12,12 +12,7 @@ class PostController extends Controller
      */
     public function index()
     {
-
-        $posts = Post::all();
-
-        return Inertia::render('Posts/Index', [
-            'posts' => $posts
-        ]);
+        return inertia('Post/Index');
     }
 
     /**
@@ -25,8 +20,7 @@ class PostController extends Controller
      */
     public function create()
     {
-        return Inertia::render('Posts/Create');
-
+        //
     }
 
     /**
@@ -34,15 +28,7 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        $validatedData = $request->validate([
-            'title' => 'required|max:255',
-            'content' => 'required',
-        ]);
-
-        $post = Post::create($validatedData);
-
-        return redirect()->route('posts.index')->with('success', 'Post created successfully.');
-
+        //
     }
 
     /**
@@ -50,10 +36,7 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
-        return Inertia::render('Posts/Show', [
-            'post' => $post
-        ]);
-
+        //
     }
 
     /**
@@ -61,10 +44,7 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
-        return Inertia::render('Posts/Edit', [
-            'post' => $post
-        ]);
-
+        //
     }
 
     /**
@@ -72,15 +52,7 @@ class PostController extends Controller
      */
     public function update(Request $request, Post $post)
     {
-        $validatedData = $request->validate([
-            'title' => 'required|max:255',
-            'content' => 'required',
-        ]);
-
-        $post->update($validatedData);
-
-        return redirect()->route('posts.index')->with('success', 'Post updated successfully.');
-
+        //
     }
 
     /**
@@ -88,9 +60,6 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
-        $post->delete();
-
-        return redirect()->route('posts.index')->with('success', 'Post deleted successfully.');
-
+        //
     }
 }
