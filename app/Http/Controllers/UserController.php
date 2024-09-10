@@ -47,7 +47,7 @@ class UserController extends Controller
 
         $user->roles()->sync($roles);
 
-        return redirect()->route('user.index');
+        return redirect()->route('user.index')->with('success', 'Data User Berhasil Ditambahkan');
     }
 
     /**
@@ -94,7 +94,7 @@ class UserController extends Controller
 
         $user->roles()->sync($validatedData['roles']);
 
-        return redirect()->route('user.index');
+        return redirect()->route('user.index')->with('success', 'Data User Berhasil Diperbarui');
     }
 
     /**
@@ -105,6 +105,6 @@ class UserController extends Controller
         Gate::authorize('user_delete');
 
         $user->delete();
-        return redirect()->route('user.index');
+        return redirect()->route('user.index')->with('success', 'Data User Berhasil Dihapus');
     }
 }

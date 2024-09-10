@@ -86,7 +86,7 @@ class PesantrenPhotoController extends Controller
             'video_profil' => $validatedData['video_profil']
         ]);
 
-        return redirect()->route('pesantren.index')->with('success', 'Data Pesantren Berhasil Disimpan.');
+        return redirect()->route('pesantren.index')->with('success', 'Data Pesantren Berhasil Diperbarui.');
     }
 
     /**
