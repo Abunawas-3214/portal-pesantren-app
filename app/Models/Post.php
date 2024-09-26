@@ -9,7 +9,7 @@ class Post extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['title', 'slug', 'featured_image', 'content', 'status'];
+    protected $fillable = ['user_id', 'title', 'slug', 'featured_image', 'content', 'status'];
 
     public function user()
     {
@@ -18,6 +18,6 @@ class Post extends Model
 
     public function categories()
     {
-        return $this->belongsToMany(Category::class);
+        return $this->belongsToMany(Category::class, 'post_category');
     }
 }

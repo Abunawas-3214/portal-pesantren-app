@@ -112,9 +112,6 @@ class PesantrenController extends Controller
         Gate::authorize('pesantren_show');
 
         $pesantren = Pesantren::with('user', 'programs', 'tingkats', 'media', 'validasi', 'photos')->find($pesantren->id);
-        // return inertia('Pesantren/View', [
-        //     'pesantren' => $pesantren
-        // ]);
         $pesantrenData = new PesantrenResource($pesantren);
         return inertia('Pesantren/View', [
             'pesantrenData' => $pesantrenData

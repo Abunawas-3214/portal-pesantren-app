@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\MediaController;
 use App\Http\Controllers\PesantrenController;
 use App\Http\Controllers\PesantrenDeskripsiController;
@@ -48,6 +49,8 @@ Route::middleware('auth')->group(function () {
     Route::put('/pesantren/{pesantren}/update/photo', [PesantrenPhotoController::class, 'update'])->name('pesantren.photo.update');
 
     Route::resource('/post', PostController::class);
+
+    Route::resource('/category', CategoryController::class);
 
     Route::resource('/usaha', UsahaPesantrenController::class);
 

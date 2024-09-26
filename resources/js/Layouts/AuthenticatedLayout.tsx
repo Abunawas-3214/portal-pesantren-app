@@ -39,6 +39,12 @@ export default function Authenticated({ user, header, children }: PropsWithChild
                                         Post
                                     </NavLink>
                                 }
+                                {(page.props.can.category_access) &&
+                                    <NavLink href={route('category.index')} active={route().current('category.index')}>
+                                        Category
+                                    </NavLink>
+                                }
+
                                 {(page.props.can.pesantren_access_all || page.props.can.pesantren_access_self) &&
                                     <NavLink href={route('usaha.index')} active={route().current('usaha.index')}>
                                         Usaha

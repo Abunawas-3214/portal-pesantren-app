@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Http\Requests\StoreCategoryRequest;
 use App\Http\Requests\UpdateCategoryRequest;
+use Illuminate\Support\Facades\Gate;
 
 class CategoryController extends Controller
 {
@@ -13,7 +14,10 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        //
+        Gate::authorize('category_access');
+        return inertia('Category/Index', [
+            'categories' => Category::all()
+        ]);
     }
 
     /**
@@ -21,7 +25,8 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        //
+        Gate::authorize('category_create');
+        return inertia('Category/Create');
     }
 
     /**
@@ -29,7 +34,9 @@ class CategoryController extends Controller
      */
     public function store(StoreCategoryRequest $request)
     {
-        //
+        Gate::authorize('category_create');
+        $category = Category::create($request->validated());
+        return redirect()->route('category.index')->with('success', "{$category->name} category created successfully");
     }
 
     /**
@@ -45,7 +52,10 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
-        //
+        Gate::authorize('category_edit');
+        return inertia('Category/Edit', [
+            'category' => $category
+        ]);
     }
 
     /**
@@ -53,7 +63,9 @@ class CategoryController extends Controller
      */
     public function update(UpdateCategoryRequest $request, Category $category)
     {
-        //
+        Gate::authorize('category_edit');
+        $category->update($request->validated());
+        return redirect()->route('category.index')->with('success', 'Category updated successfully');
     }
 
     /**
