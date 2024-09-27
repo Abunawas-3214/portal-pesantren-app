@@ -19,6 +19,7 @@ class PostCollection extends ResourceCollection
                 'title' => $post->title,
                 'slug' => $post->slug,
                 'featured_image' => $post->featured_image ? asset("storage/posts/{$post->slug}/{$post->featured_image}") : null,
+                'categories' => $post->categories->pluck('name'),
                 'user' => $post->user->name,
             ];
         })->toArray();
