@@ -15,7 +15,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::where('status', 'published')->get();
+        $posts = Post::where('status', 'published')->orderBy('created_at', 'desc')->get();
         return new PostCollection($posts);
     }
 

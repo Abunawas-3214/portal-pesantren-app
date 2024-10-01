@@ -18,9 +18,10 @@ class PostCollection extends ResourceCollection
             return [
                 'title' => $post->title,
                 'slug' => $post->slug,
-                'featured_image' => $post->featured_image ? asset("storage/posts/{$post->slug}/{$post->featured_image}") : null,
+                'featured_image' => $post->featured_image ? asset("storage/posts/{$post->featured_image}") : null,
                 'categories' => $post->categories->pluck('name'),
                 'user' => $post->user->name,
+                'created_at' => $post->created_at->format('d M Y'),
             ];
         })->toArray();
     }
