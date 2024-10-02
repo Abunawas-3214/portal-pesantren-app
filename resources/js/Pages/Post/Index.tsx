@@ -7,6 +7,12 @@ import { Post } from '@/types/post';
 
 
 export default function Index({ auth, posts }: PageProps & { posts: Post[] }) {
+    const page: { props: { can: PermissionsHandler } } = usePage();
+    const userPermissions = page.props.can
+    const postsWithUserPermissions = posts.map((post) => ({
+        ...post,
+        userPermissions
+    }));
     return (
         <AuthenticatedLayout
             user={auth.user}
@@ -32,7 +38,7 @@ export default function Index({ auth, posts }: PageProps & { posts: Post[] }) {
                     </Link>
                 </div>
             </div>
-            <TablePost columns={columns} data={posts} />
+            <TablePost columns={columns} data={postsWithUserPermissions} />
         </AuthenticatedLayout>
     );
 }

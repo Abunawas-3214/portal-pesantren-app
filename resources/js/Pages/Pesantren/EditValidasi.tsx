@@ -8,7 +8,6 @@ import ValidasiForm from '@/Components/form/validasi-form';
 import StepsEdit from '@/Components/partial/steps-edit';
 
 export default function EditValidasi({ auth, users, program, tingkat, pesantren }: PageProps & { users: User[], program: Program[], tingkat: Tingkat[], pesantren: Pesantren }) {
-    // console.log(pesantren)
     return (
         <AuthenticatedLayout
             user={auth.user}

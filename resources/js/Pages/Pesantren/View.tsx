@@ -1,5 +1,5 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import { Head } from '@inertiajs/react';
+import { Head, Link } from '@inertiajs/react';
 import { PageProps, Pesantren } from '@/types';
 import PesantrenForm from '@/Components/form/pesantren-form';
 import { User } from '@/types/user';
@@ -11,7 +11,6 @@ import PesantrenPhotosGalery from '@/Components/galery/pesantren-photos-galery';
 import PesanternVideoProfil from '@/Components/galery/pesantren-video-profil';
 
 export default function View({ auth, users, pesantrenData }: PageProps & { users: User[], pesantrenData: { data: pesantrenApi } }) {
-    console.log(pesantrenData);
     const pesantren = pesantrenData.data;
     const markup = {
         __html: pesantren.deskripsi ?? ''
@@ -169,7 +168,18 @@ export default function View({ auth, users, pesantrenData }: PageProps & { users
                             <PesanternVideoProfil video_profil={pesantren.video_profil} />
                         }
                     </div>
+                    <div className="px-4 py-3 text-right sm:px-6">
+                        <button>
+                            <Link
+                                href={route('pesantren.index')}
+                                className={'inline-flex justify-center px-4 py-2 text-sm font-medium text-white bg-indigo-600 border border-transparent rounded-md shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 items-center'}
+                            >
+                                Back
+                            </Link>
+                        </button>
+                    </div>
                 </div>
+
             </div>
         </AuthenticatedLayout>
     );

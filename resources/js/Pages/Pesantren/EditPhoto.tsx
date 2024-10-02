@@ -9,7 +9,6 @@ import StepsEdit from '@/Components/partial/steps-edit';
 import GalleryForm from '@/Components/form/gallery-form';
 
 export default function EditPhoto({ auth, pesantren }: PageProps & { pesantren: Pesantren }) {
-    //console.log(pesantren)
     return (
         <AuthenticatedLayout
             user={auth.user}

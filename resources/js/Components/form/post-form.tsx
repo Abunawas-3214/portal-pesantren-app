@@ -21,8 +21,6 @@ export default function PostForm({ postData, categories }: { postData?: Post, ca
         _method: postData && 'PUT',
     })
 
-    // console.log(user_id)
-
     useEffect(() => {
         const generateSlug = slugify(data.title, {
             lower: true,
@@ -53,8 +51,6 @@ export default function PostForm({ postData, categories }: { postData?: Post, ca
             setUploadedImage(result[0] as string)
         })
     }
-
-    console.log(data)
 
     const submit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()

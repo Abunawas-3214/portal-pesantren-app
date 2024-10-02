@@ -76,7 +76,13 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
-        //
+        Gate::authorize('post_show');
+
+        $post = $post->load('user', 'categories');
+        $post->featured_image = $post->featured_image ? asset("storage/posts/{$post->featured_image}") : null;
+        return inertia('Post/View', [
+            'post' => $post
+        ]);
     }
 
     /**
