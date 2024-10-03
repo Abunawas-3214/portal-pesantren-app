@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\DashboardController;
 use App\Http\Controllers\Api\PesantrenController;
 use App\Http\Controllers\Api\PostController;
 use Illuminate\Http\Request;
@@ -14,3 +15,5 @@ Route::get('/pesantren/{slug}', [PesantrenController::class, 'show']);
 
 Route::get('/post', [PostController::class, 'index']);
 Route::get('/post/{slug}', [PostController::class, 'show']);
+
+Route::get('/dashboard', [DashboardController::class, 'index']);
