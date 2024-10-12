@@ -74,7 +74,7 @@ export default function RoleForm({ permissions, role }: { permissions: Permissio
                 <button>
                     <Link
                         disabled={processing}
-                        href={route('post.index')}
+                        href={route('role.index')}
                         className={`inline-flex items-center px-4 py-2 mr-4 text-sm font-medium text-indigo-700 bg-indigo-100 border border-transparent rounded-md hover:bg-indigo-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 ${processing ? "opacity-25 cursor-not-allowed" : ""}`}
                     >
                         Cancel

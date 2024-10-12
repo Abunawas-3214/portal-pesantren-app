@@ -23,7 +23,7 @@ class StorePesantrenRequest extends FormRequest
     {
         return [
             'user_id' => ['required', 'exists:users,id'],
-            'name' => ['required', 'string', 'min:4', 'max:30', 'unique:pesantrens'],
+            'name' => ['required', 'string', 'min:4', 'max:50', 'unique:pesantrens'],
             'slug' => ['required', 'string', 'min:4', 'max:255', 'unique:pesantrens'],
             'alamat' => ['nullable', 'string', 'min:4', 'max:255'],
             'kecamatan' => ['nullable', 'string', 'min:4', 'max:20'],

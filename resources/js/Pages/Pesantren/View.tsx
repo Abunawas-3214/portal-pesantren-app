@@ -104,33 +104,38 @@ export default function View({ auth, users, pesantrenData }: PageProps & { users
 
                     <div className='space-y-4'>
                         <h1 className='text-3xl font-bold'>Sosial Media Pesantren</h1>
-                        <table className="w-full mt-8 border-collapse">
-                            <tbody>
-                                <tr>
-                                    <td className="w-1/4 p-2 font-semibold border">Facebook</td>
-                                    <td className="w-3/4 p-2 border"><a href={pesantren.media.facebook} target="_blank" rel="noopener noreferrer" className="text-blue-600 underline">{pesantren.media.facebook}</a></td>
-                                </tr>
-                                <tr>
-                                    <td className="w-1/4 p-2 font-semibold border">Instagram</td>
-                                    <td className="w-3/4 p-2 border"><a href={pesantren.media.instagram} target="_blank" rel="noopener noreferrer" className="text-blue-600 underline">{pesantren.media.instagram}</a></td>
-                                </tr>
-                                <tr>
-                                    <td className="w-1/4 p-2 font-semibold border">Youtube</td>
-                                    <td className="w-3/4 p-2 border"><a href={pesantren.media.youtube} target="_blank" rel="noopener noreferrer" className="text-blue-600 underline">{pesantren.media.youtube}</a></td>
-                                </tr>
-                                <tr>
-                                    <td className="w-1/4 p-2 font-semibold border">Tiktok</td>
-                                    <td className="w-3/4 p-2 border"><a href={pesantren.media.tiktok} target="_blank" rel="noopener noreferrer" className="text-blue-600 underline">{pesantren.media.tiktok}</a></td>
-                                </tr>
-                                <tr>
-                                    <td className="w-1/4 p-2 font-semibold border">Twitter</td>
-                                    <td className="w-3/4 p-2 border"><a href={pesantren.media.twitter} target="_blank" rel="noopener noreferrer" className="text-blue-600 underline">{pesantren.media.twitter}</a></td>
-                                </tr>
-                                <tr>
-                                    <td className="w-1/4 p-2 font-semibold border">Website</td>
-                                    <td className="w-3/4 p-2 border"><a href={pesantren.media.website} target="_blank" rel="noopener noreferrer" className="text-blue-600 underline">{pesantren.media.website}</a></td>
-                                </tr>                                  </tbody>
-                        </table>
+                        {
+                            (pesantren.media)
+                                ?
+                                <table className="w-full mt-8 border-collapse">
+                                    <tbody>
+                                        <tr>
+                                            <td className="w-1/4 p-2 font-semibold border">Facebook</td>
+                                            <td className="w-3/4 p-2 border"><a href={pesantren.media.facebook} target="_blank" rel="noopener noreferrer" className="text-blue-600 underline">{pesantren.media.facebook}</a></td>
+                                        </tr>
+                                        <tr>
+                                            <td className="w-1/4 p-2 font-semibold border">Instagram</td>
+                                            <td className="w-3/4 p-2 border"><a href={pesantren.media.instagram} target="_blank" rel="noopener noreferrer" className="text-blue-600 underline">{pesantren.media.instagram}</a></td>
+                                        </tr>
+                                        <tr>
+                                            <td className="w-1/4 p-2 font-semibold border">Youtube</td>
+                                            <td className="w-3/4 p-2 border"><a href={pesantren.media.youtube} target="_blank" rel="noopener noreferrer" className="text-blue-600 underline">{pesantren.media.youtube}</a></td>
+                                        </tr>
+                                        <tr>
+                                            <td className="w-1/4 p-2 font-semibold border">Tiktok</td>
+                                            <td className="w-3/4 p-2 border"><a href={pesantren.media.tiktok} target="_blank" rel="noopener noreferrer" className="text-blue-600 underline">{pesantren.media.tiktok}</a></td>
+                                        </tr>
+                                        <tr>
+                                            <td className="w-1/4 p-2 font-semibold border">Twitter</td>
+                                            <td className="w-3/4 p-2 border"><a href={pesantren.media.twitter} target="_blank" rel="noopener noreferrer" className="text-blue-600 underline">{pesantren.media.twitter}</a></td>
+                                        </tr>
+                                        <tr>
+                                            <td className="w-1/4 p-2 font-semibold border">Website</td>
+                                            <td className="w-3/4 p-2 border"><a href={pesantren.media.website} target="_blank" rel="noopener noreferrer" className="text-blue-600 underline">{pesantren.media.website}</a></td>
+                                        </tr>                                  </tbody>
+                                </table>
+                                : <p className='text-center'>Belum ada sosial media pesantren untuk saat ini</p>
+                        }
                     </div>
 
                     <div className='space-y-4'>

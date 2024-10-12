@@ -23,7 +23,7 @@ class UpdatePesantrenRequest extends FormRequest
     {
         return [
             'user_id' => ['required', 'exists:users,id'],
-            'name' => ['required', 'string', 'min:4', 'max:30'],
+            'name' => ['required', 'string', 'min:4', 'max:50'],
             'slug' => ['required', 'string', 'min:4', 'max:255'],
             'alamat' => ['nullable', 'string', 'min:4', 'max:255'],
             'kecamatan' => ['nullable', 'string'],

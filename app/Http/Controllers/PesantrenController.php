@@ -26,7 +26,7 @@ class PesantrenController extends Controller
             return $user->can('pesantren_access_all') || $user->can('pesantren_access_self');
         });
         if (Gate::check('pesantren_access_all')) {
-            $pesantrenData = Pesantren::with('user', 'programs', 'tingkats')->get();
+            $pesantrenData = Pesantren::with('user', 'programs', 'tingkats')->orderBy('name')->get();
             return inertia('Pesantren/Index', [
                 'pesantrenData' => $pesantrenData
             ]);

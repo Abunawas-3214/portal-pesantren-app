@@ -17,22 +17,22 @@ class PesantrenFactory extends Factory
     public function definition(): array
     {
         return [
-            'id' => $this->faker->unique()->numberBetween(1, 100),
+            'id' => $this->faker->uuid(),
             'name' => fake()->company(),
-            'slug' => fake()->company(),
-            'pendiri' => fake()->name(),
-            'pengasuh' => fake()->name(),
-            'tanggal_berdiri' => fake()->dateTimeBetween('-30 years'),
-            'deskripsi' => fake()->paragraph(),
-            'gender' => fake()->randomElement(['putra', 'putri', 'putra_putri']),
-            'program' => fake()->word(),
-            'tingkat' => fake()->word(),
-            'program_unggulan' => fake()->optional()->word(),
-            'contact' => fake()->phoneNumber(),
-            'logo' => 'logo.png', // Or use a fake image path if needed
-            'video_profil' => 'video_profil.mp4', // Or use a fake video path if needed
-            'foto_sampul' => 'foto_sampul.jpg', // Or use a fake image path if needed
-            'foto' => 'foto.jpg', // Or use a fake image path if needed
+            'slug' => fake()->slug(),
+            // 'pendiri' => fake()->name(),
+            // 'pengasuh' => fake()->name(),
+            // 'tanggal_berdiri' => fake()->dateTimeBetween('-30 years'),
+            // 'deskripsi' => fake()->paragraph(),
+            // 'gender' => fake()->randomElement(['putra', 'putri', 'putra_putri']),
+            // 'program' => fake()->word(),
+            // 'tingkat' => fake()->word(),
+            // 'program_unggulan' => fake()->optional()->word(),
+            // 'contact' => fake()->phoneNumber(),
+            // 'logo' => 'logo.png', // Or use a fake image path if needed
+            // 'video_profil' => 'video_profil.mp4', // Or use a fake video path if needed
+            // 'foto_sampul' => 'foto_sampul.jpg', // Or use a fake image path if needed
+            // 'foto' => 'foto.jpg', // Or use a fake image path if needed
         ];
     }
 }

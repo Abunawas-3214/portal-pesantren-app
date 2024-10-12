@@ -3,7 +3,11 @@ import {
     flexRender,
     getCoreRowModel,
     useReactTable,
+    getPaginationRowModel,
+    getFilteredRowModel
 } from "@tanstack/react-table"
+import Pagination from "./pagination"
+import Toolbar from "./toolbar"
 
 interface DataTableProps<TData, TValue> {
     columns: ColumnDef<TData, TValue>[]
@@ -18,9 +22,12 @@ export default function TablePesantren<TData, TValue>({
         data,
         columns,
         getCoreRowModel: getCoreRowModel(),
+        getPaginationRowModel: getPaginationRowModel(),
+        getFilteredRowModel: getFilteredRowModel(),
     })
     return (
-        <div className="p-2">
+        <div className="p-2 space-y-4">
+            <Toolbar data={table} />
             <table className="min-w-full divide-y divide-gray-300">
                 <thead className="bg-gray-50">
                     {table.getHeaderGroups().map(headerGroup => (
@@ -57,6 +64,7 @@ export default function TablePesantren<TData, TValue>({
                     ))}
                 </tbody>
             </table>
+            <Pagination data={table} />
         </div>
     )
 }

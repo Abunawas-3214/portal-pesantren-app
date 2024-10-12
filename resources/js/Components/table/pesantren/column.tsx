@@ -25,6 +25,7 @@ export const columns: ColumnDef<PesantrenWithUserPermissions>[] = [
     {
         accessorKey: "alamat",
         header: "Alamat",
+        cell: ({ row }) => <div className="text-wrap">{row.original.alamat}</div>
     },
     {
         accessorKey: "kecamatan",
@@ -59,6 +60,15 @@ export const columns: ColumnDef<PesantrenWithUserPermissions>[] = [
                 </div>
             );
         }
+    },
+    {
+        accessorKey: "gender",
+        header: "Gender",
+        cell: ({ row }) => {
+            return (
+                <div className="capitalize">{(row.original.gender) == "putra_putri" ? "Putra, Putri" : row.original.gender}</div>
+            )
+        },
     },
     {
         accessorKey: "action",

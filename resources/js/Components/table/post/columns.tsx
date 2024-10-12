@@ -20,7 +20,7 @@ export const columns: ColumnDef<PostWithUserPermissions>[] = [
         accessorKey: "title",
         header: "Title",
         cell: ({ row }) => {
-            return <div className="capitalize">{row.original.title}</div>
+            return <div className="capitalize text-wrap">{row.original.title}</div>
         }
     },
     {

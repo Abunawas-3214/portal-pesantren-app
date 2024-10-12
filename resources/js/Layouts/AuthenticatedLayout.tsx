@@ -138,6 +138,37 @@ export default function Authenticated({ user, header, children }: PropsWithChild
                         <ResponsiveNavLink href={route('dashboard')} active={route().current('dashboard')}>
                             Dashboard
                         </ResponsiveNavLink>
+                        {(page.props.can.pesantren_access_all || page.props.can.pesantren_access_self) &&
+                            <ResponsiveNavLink href={route('pesantren.index')} active={route().current('pesantren.index')}>
+                                Pesantren
+                            </ResponsiveNavLink>
+                        }
+                        {(page.props.can.post_access_all || page.props.can.post_access_self) &&
+                            <ResponsiveNavLink href={route('post.index')} active={route().current('post.index')}>
+                                Post
+                            </ResponsiveNavLink>
+                        }
+                        {(page.props.can.category_access) &&
+                            <ResponsiveNavLink href={route('category.index')} active={route().current('category.index')}>
+                                Category
+                            </ResponsiveNavLink>
+                        }
+
+                        {(page.props.can.pesantren_access_all || page.props.can.pesantren_access_self) &&
+                            <ResponsiveNavLink href={route('usaha.index')} active={route().current('usaha.index')}>
+                                Usaha
+                            </ResponsiveNavLink>
+                        }
+                        {page.props.can.user_access &&
+                            <ResponsiveNavLink href={route('user.index')} active={route().current('user.index')}>
+                                User
+                            </ResponsiveNavLink>
+                        }
+                        {page.props.can.role_access &&
+                            <ResponsiveNavLink href={route('role.index')} active={route().current('role.index')}>
+                                Role
+                            </ResponsiveNavLink>
+                        }
                     </div>
 
                     <div className="pt-4 pb-1 border-t border-gray-200">
