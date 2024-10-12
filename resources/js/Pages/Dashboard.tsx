@@ -11,7 +11,7 @@ export default function Dashboard({ auth }: PageProps) {
             <Head title="Dashboard" />
 
             <div className="sm:flex sm:items-center">
-                <h1>Dashboarad</h1>
+                <h1><span className='font-bold'>Pesantren NU APP: </span>Version 1.2.0 - 12 October 2024</h1>
             </div>
         </AuthenticatedLayout>
     );
