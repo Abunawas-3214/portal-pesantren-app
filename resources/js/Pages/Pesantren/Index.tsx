@@ -42,7 +42,7 @@ export default function Index({ auth, pesantrenData }: PageProps & { pesantrenDa
                 }
             </div>
             <div>
-                <TablePesantren columns={columns} data={pesantrenDatawithUserPermissions} />
+                <TablePesantren columns={columns} data={pesantrenDatawithUserPermissions} permissions={userPermissions} />
             </div>
         </AuthenticatedLayout>
     );

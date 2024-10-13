@@ -8,15 +8,18 @@ import {
 } from "@tanstack/react-table"
 import Pagination from "./pagination"
 import Toolbar from "./toolbar"
+import { PermissionsHandler } from "@/types"
 
 interface DataTableProps<TData, TValue> {
     columns: ColumnDef<TData, TValue>[]
     data: TData[]
+    permissions: PermissionsHandler
 }
 
 export default function TablePesantren<TData, TValue>({
     columns,
     data,
+    permissions
 }: DataTableProps<TData, TValue>) {
     const table = useReactTable({
         data,
@@ -27,7 +30,9 @@ export default function TablePesantren<TData, TValue>({
     })
     return (
         <div className="p-2 space-y-4">
-            <Toolbar data={table} />
+            {permissions.pesantren_access_all &&
+                <Toolbar data={table} />
+            }
             <table className="min-w-full divide-y divide-gray-300">
                 <thead className="bg-gray-50">
                     {table.getHeaderGroups().map(headerGroup => (
@@ -64,7 +69,9 @@ export default function TablePesantren<TData, TValue>({
                     ))}
                 </tbody>
             </table>
-            <Pagination data={table} />
+            {permissions.pesantren_access_all &&
+                <Pagination data={table} />
+            }
         </div>
     )
 }

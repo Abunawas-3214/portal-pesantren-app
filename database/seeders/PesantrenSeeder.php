@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Media;
 use App\Models\Pesantren;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -45,15 +46,25 @@ class PesantrenSeeder extends Seeder
         // }
 
 
-        $faker = \Faker\Factory::create('id_ID');
+        // $faker = \Faker\Factory::create('id_ID');
+
+        // $pesantrens = Pesantren::all();
+
+        // foreach ($pesantrens as $pesantren) {
+        //     $pesantren->update([
+        //         'alamat' => $faker->address,
+        //     ]);
+        // }
+
+
+        // $faker = \Faker\Factory::create();
 
         $pesantrens = Pesantren::all();
 
         foreach ($pesantrens as $pesantren) {
-            $pesantren->update([
-                'alamat' => $faker->address,
+            Media::create([
+                'pesantren_id' => $pesantren->id,
             ]);
         }
-
     }
 }
