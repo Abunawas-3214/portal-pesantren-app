@@ -15,7 +15,7 @@ const Tiptap = ({ onChange, content }: { onChange: (richText: string) => void, c
         editorProps: {
             attributes: {
                 class:
-                    `min-h-52 min-w-full prose prose-slate prose-strong:font-black font-light text-sm prose-h3:text-2xl prose-h3:font-light prose-a:text-blue-600 px-4 py-3 leading-3 justify-start border-b border-r border-l border-gray-400 items-start rounded-b-md outline-none`,
+                    `min-h-52 min-w-full prose prose-slate prose-strong:font-black font-light text-sm prose-h3:text-2xl prose-h3:font-light prose-a:text-blue-600 px-4 py-3 leading-5 justify-start border-b border-r border-l border-gray-400 items-start rounded-b-md outline-none`,
             },
         },
         content: content,
