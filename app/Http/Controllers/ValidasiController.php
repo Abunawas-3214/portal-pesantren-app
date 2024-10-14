@@ -70,7 +70,7 @@ class ValidasiController extends Controller
             }
             $file = $request->file('kemenag');
             $filename = 'kemenag.' . $file->getClientOriginalExtension();
-            $file->storeAs("public/pesantren/{$pesantren->slug}/validasi", $filename);
+            $file->storePubliclyAs("public/pesantren/{$pesantren->slug}/validasi", $filename);
             $pesantren->validasi()->create([
                 'pesantren_id' => $pesantren->id,
                 'kategori_validasi' => 'kemenag',
@@ -85,7 +85,7 @@ class ValidasiController extends Controller
             }
             $file = $request->file('rmi');
             $filename = 'rmi.' . $file->getClientOriginalExtension();
-            $file->storeAs("public/pesantren/{$pesantren->slug}/validasi", $filename);
+            $file->storePubliclyAs("public/pesantren/{$pesantren->slug}/validasi", $filename);
             $pesantren->validasi()->create([
                 'pesantren_id' => $pesantren->id,
                 'kategori_validasi' => 'rmi',

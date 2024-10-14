@@ -77,14 +77,14 @@ class PesantrenController extends Controller
         if ($request->hasFile('logo')) {
             $logo = $request->file('logo');
             $filename = 'logo.' . $logo->getClientOriginalExtension();
-            $logo->storeAs("public/pesantren/{$pesantren->slug}", $filename);
+            $logo->storePubliclyAs("public/pesantren/{$pesantren->slug}", $filename);
             $pesantren->logo = $filename;
         }
 
         if ($request->hasFile('foto_sampul')) {
             $foto_sampul = $request->file('foto_sampul');
             $filename = 'foto_sampul.' . $foto_sampul->getClientOriginalExtension();
-            $foto_sampul->storeAs("public/pesantren/{$pesantren->slug}", $filename);
+            $foto_sampul->storePubliclyAs("public/pesantren/{$pesantren->slug}", $filename);
             $pesantren->foto_sampul = $filename;
         }
 
@@ -168,7 +168,7 @@ class PesantrenController extends Controller
                 $pesantren->save();
             }
 
-            $logo->storeAs("public/pesantren/{$pesantren->slug}", $filename);
+            $logo->storePubliclyAs("public/pesantren/{$pesantren->slug}", $filename);
         }
 
         if ($request->hasFile('foto_sampul')) {
@@ -185,7 +185,7 @@ class PesantrenController extends Controller
                 $pesantren->save();
             }
 
-            $foto_sampul->storeAs("public/pesantren/{$pesantren->slug}", $filename);
+            $foto_sampul->storePubliclyAs("public/pesantren/{$pesantren->slug}", $filename);
         }
 
         $pesantren->programs()->sync($request->program);

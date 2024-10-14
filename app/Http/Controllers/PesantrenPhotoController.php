@@ -72,7 +72,7 @@ class PesantrenPhotoController extends Controller
             for ($i = 0; $i < count($photos); $i++) {
                 $photo = $photos[$i];
                 $photoName = $i + 1 . '.' . $photo->getClientOriginalExtension();
-                $photo->storeAs("public/pesantren/{$pesantren->slug}/photos", $photoName);
+                $photo->storePubliclyAs("public/pesantren/{$pesantren->slug}/photos", $photoName);
                 $pesantren->photos()->create([
                     'pesantren_id' => $pesantren->id,
                     'file' => $photoName
