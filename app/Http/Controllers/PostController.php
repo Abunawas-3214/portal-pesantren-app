@@ -58,7 +58,15 @@ class PostController extends Controller
         if ($request->hasFile('featured_image')) {
             $featured_image = $request->file('featured_image');
             $filename = $request->slug . '.' . $featured_image->getClientOriginalExtension();
-            $featured_image->storeAs('public/posts', $filename);
+            // $featured_image->storeAs('public/posts', $filename);
+
+            if (!Storage::exists('public/posts')) {
+                Storage::makeDirectory('public/posts', 0755, true);
+            }
+
+            $featured_image->storePubliclyAs('public/posts', $filename);
+            // Storage::put("public/posts/{$filename}", $featured_image, 'public');
+
             $post->featured_image = $filename;
         }
 
