@@ -77,15 +77,20 @@ class PostController extends Controller
     public function show(Post $post)
     {
         Gate::authorize('post_show');
-        if (Gate::allows('post_access_all') || $post->user_id === auth()->id()) {
-            $post = $post->load('user', 'categories');
-            $post->featured_image = $post->featured_image ? asset("storage/posts/{$post->featured_image}") : null;
-            return inertia('Post/View', [
-                'post' => $post
-            ]);
-        }
+        $post = $post->load('user', 'categories');
+        $post->featured_image = $post->featured_image ? asset("storage/posts/{$post->featured_image}") : null;
+        return inertia('Post/View', [
+            'post' => $post
+        ]);
+        // if (Gate::allows('post_access_all') || $post->user_id == auth()->user()->id) {
+        //     $post = $post->load('user', 'categories');
+        //     $post->featured_image = $post->featured_image ? asset("storage/posts/{$post->featured_image}") : null;
+        //     return inertia('Post/View', [
+        //         'post' => $post
+        //     ]);
+        // }
+        // abort(403, 'Unauthorized action.');
 
-        abort(403, 'Unauthorized action.');
     }
 
     /**
@@ -94,16 +99,23 @@ class PostController extends Controller
     public function edit(Post $post)
     {
         Gate::authorize('post_edit');
-        if (Gate::allows('post_access_all') || $post->user_id === auth()->id()) {
-            $categories = Category::all();
-            $post = $post->load('categories');
-            $post->featured_image = $post->featured_image ? asset("storage/posts/{$post->featured_image}") : null;
-            return inertia('Post/Edit', [
-                'post' => $post->load('categories'),
-                'categories' => $categories,
-            ]);
-        }
-        abort(403, 'Unauthorized action.');
+        $categories = Category::all();
+        $post = $post->load('categories');
+        $post->featured_image = $post->featured_image ? asset("storage/posts/{$post->featured_image}") : null;
+        return inertia('Post/Edit', [
+            'post' => $post->load('categories'),
+            'categories' => $categories,
+        ]);
+        // if (Gate::allows('post_access_all') || $post->user_id == auth()->user()->id) {
+        //     $categories = Category::all();
+        //     $post = $post->load('categories');
+        //     $post->featured_image = $post->featured_image ? asset("storage/posts/{$post->featured_image}") : null;
+        //     return inertia('Post/Edit', [
+        //         'post' => $post->load('categories'),
+        //         'categories' => $categories,
+        //     ]);
+        // }
+        // abort(403, 'Unauthorized action.');
     }
 
     /**
@@ -112,34 +124,60 @@ class PostController extends Controller
     public function update(UpdatePostRequest $request, Post $post)
     {
         Gate::authorize('post_edit');
-        if (Gate::allows('post_access_all') || $post->user_id === auth()->id()) {
-            if ($request->hasFile('featured_image')) {
-                if ($post->featured_image) {
-                    Storage::delete("public/posts/{$post->featured_image}");
-                }
-
-                $featured_image = $request->file('featured_image');
-                $filename = $request->slug . '.' . $featured_image->getClientOriginalExtension();
-                $featured_image->storePubliclyAs('public/posts', $filename);
-                $post->featured_image = $filename;
-                $post->save();
+        if ($request->hasFile('featured_image')) {
+            if ($post->featured_image) {
+                Storage::delete("public/posts/{$post->featured_image}");
             }
 
-            if ($post->featured_image && ($request->slug !== $post->slug)) {
-                $oldFilename = $post->featured_image;
-                $newFilename = $request->slug . '.' . pathinfo($oldFilename, PATHINFO_EXTENSION);
-                Storage::move("public/posts/{$oldFilename}", "public/posts/{$newFilename}");
-                $post->featured_image = $newFilename;
-                $post->save();
-            }
-
-            $post->update($request->except('featured_image'));
-            $categories = $request->categories;
-            $post->categories()->sync($categories);
-
-            return redirect()->route('post.index')->with('success', 'Post updated successfully');
+            $featured_image = $request->file('featured_image');
+            $filename = $request->slug . '.' . $featured_image->getClientOriginalExtension();
+            $featured_image->storePubliclyAs('public/posts', $filename);
+            $post->featured_image = $filename;
+            $post->save();
         }
-        abort(403, 'Unauthorized action.');
+
+        if ($post->featured_image && ($request->slug !== $post->slug)) {
+            $oldFilename = $post->featured_image;
+            $newFilename = $request->slug . '.' . pathinfo($oldFilename, PATHINFO_EXTENSION);
+            Storage::move("public/posts/{$oldFilename}", "public/posts/{$newFilename}");
+            $post->featured_image = $newFilename;
+            $post->save();
+        }
+
+        $post->update($request->except('featured_image'));
+        $categories = $request->categories;
+        $post->categories()->sync($categories);
+
+        return redirect()->route('post.index')->with('success', 'Post updated successfully');
+
+        // if (Gate::allows('post_access_all') || $post->user_id == auth()->user()->id) {
+        //     if ($request->hasFile('featured_image')) {
+        //         if ($post->featured_image) {
+        //             Storage::delete("public/posts/{$post->featured_image}");
+        //         }
+
+        //         $featured_image = $request->file('featured_image');
+        //         $filename = $request->slug . '.' . $featured_image->getClientOriginalExtension();
+        //         $featured_image->storePubliclyAs('public/posts', $filename);
+        //         $post->featured_image = $filename;
+        //         $post->save();
+        //     }
+
+        //     if ($post->featured_image && ($request->slug !== $post->slug)) {
+        //         $oldFilename = $post->featured_image;
+        //         $newFilename = $request->slug . '.' . pathinfo($oldFilename, PATHINFO_EXTENSION);
+        //         Storage::move("public/posts/{$oldFilename}", "public/posts/{$newFilename}");
+        //         $post->featured_image = $newFilename;
+        //         $post->save();
+        //     }
+
+        //     $post->update($request->except('featured_image'));
+        //     $categories = $request->categories;
+        //     $post->categories()->sync($categories);
+
+        //     return redirect()->route('post.index')->with('success', 'Post updated successfully');
+        // }
+        // abort(403, 'Unauthorized action.');
     }
 
     /**
@@ -148,12 +186,19 @@ class PostController extends Controller
     public function destroy(Post $post)
     {
         Gate::authorize('post_delete');
-        if (Gate::allows('post_access_all') || $post->user_id === auth()->id()) {
-            if ($post->featured_image) {
-                Storage::delete("public/posts/{$post->featured_image}");
-            }
-            $post->delete();
-            return redirect()->route('post.index')->with('success', 'Post deleted successfully');
+
+        if ($post->featured_image) {
+            Storage::delete("public/posts/{$post->featured_image}");
         }
+        $post->delete();
+        return redirect()->route('post.index')->with('success', 'Post deleted successfully');
+
+        // if (Gate::allows('post_access_all') || $post->user_id == auth()->user()->id) {
+        //     if ($post->featured_image) {
+        //         Storage::delete("public/posts/{$post->featured_image}");
+        //     }
+        //     $post->delete();
+        //     return redirect()->route('post.index')->with('success', 'Post deleted successfully');
+        // }
     }
 }

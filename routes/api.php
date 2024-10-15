@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\DashboardController;
 use App\Http\Controllers\Api\PesantrenController;
 use App\Http\Controllers\Api\PostController;
+use App\Http\Controllers\Api\TryController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
