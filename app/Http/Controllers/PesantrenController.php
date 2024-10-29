@@ -149,7 +149,9 @@ class PesantrenController extends Controller
         Gate::authorize('pesantren_edit');
 
         if ($pesantren->slug != $request->slug) {
-            rename(storage_path("app/public/pesantren/{$pesantren->slug}"), storage_path("app/public/pesantren/{$request->slug}"));
+            if (Storage::exists("public/pesantren/{$pesantren->slug}")) {
+                rename(storage_path("app/public/pesantren/{$pesantren->slug}"), storage_path("app/public/pesantren/{$request->slug}"));
+            }
         }
 
         $pesantren->update($request->validated());
